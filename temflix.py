@@ -57,7 +57,7 @@ def is_title_on_netflix(title):
     return False
 
 #tmdb = TMDb()
-#tmdb.api_key = '2db644d7d10eb9169d1ffec23011a15f'
+#tmdb.api_key = os.getenv("TMB_API_KEY")
 #tmdb_m = tmdb_movie()
 #popular = tmdb_m.popular()
 #for p in popular:
