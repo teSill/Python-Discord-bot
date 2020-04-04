@@ -29,20 +29,16 @@ class DiscordClient(discord.Client):
             
             movie = Movie(imdb.title, imdb.director, imdb.stars, imdb.plot, imdb.genre, imdb.rating, imdb.url, imdb.year, imdb.runtime)
 
-            temflix_result_msg = textwrap.dedent("""\
-                Title: %s
-                Director: %s
-                Stars: %s
-                Plot: %s
-                Genres: %s
-                Rating: %s
-                Link: %s
-                Release year: %s
-                Runtime: %s
-                On Netflix: %s
-
-                """ % (movie.title, movie.director, movie.stars, movie.plot, movie.genre, movie.imdb_rating, movie.imdb_link, movie.year, movie.runtime, "maybe but tbh idk"))
-            await message.channel.send(temflix_result_msg)
+            embed = discord.Embed(title=movie.title, description=movie.plot, color=0x00ff00)
+            embed.add_field(name="Director", value=movie.director, inline=True)
+            embed.add_field(name="Cast", value=movie.stars, inline=True)
+            embed.add_field(name="Genres", value=movie.genre, inline=True)
+            embed.add_field(name="IMDb rating", value=movie.imdb_rating, inline=True)
+            embed.add_field(name="IMDb link", value=movie.imdb_link, inline=True)
+            embed.add_field(name="Release year", value=movie.year, inline=True)
+            embed.add_field(name="Runtime", value=movie.runtime, inline=True)
+            
+            await message.channel.send(embed = embed)
             
         
 
