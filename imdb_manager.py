@@ -1,4 +1,5 @@
 from imdb import IMDb, IMDbError, utils
+import urllib
 
 class IMDbData(object):
     def __init__(self, title):
@@ -14,6 +15,7 @@ class IMDbData(object):
         self.year = self.get_year()
         self.runtime = self.get_runtime()
         self.url = self.get_url()
+        self.image = self.get_gallery()
 
     def set_instance(self):
         return IMDb()
@@ -66,6 +68,9 @@ class IMDbData(object):
 
     def get_url(self):
         return self.instance.get_imdbURL(self.movie)
+
+    def get_gallery(self):
+        return self.imdb_movie["cover url"]
             
     
         

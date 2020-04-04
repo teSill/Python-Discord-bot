@@ -17,7 +17,7 @@ from excel_manager import handle_excel_save
 #print("Loading movie data...")
 
 class Movie:
-    def __init__(self, title, director, stars, plot, genre, imdb_rating, imdb_link, year, runtime):
+    def __init__(self, title, director, stars, plot, genre, imdb_rating, imdb_link, year, runtime, image):
         self.title = title
         self.director = director
         self.stars = stars
@@ -28,6 +28,7 @@ class Movie:
         self.year = year
         self.runtime = runtime
         #self.is_on_netflix = self.is_title_on_netflix
+        self.image = image
 
     def is_title_on_netflix(self):
         title_lowercase = self.title.lower()
@@ -48,15 +49,5 @@ class ExcelData:
     # Our own watch list
     dir_path = str(Path.home())
     wb_path = os.path.join(dir_path, "temflix_movie_list.xlsx")
-
-#tmdb = TMDb()
-#tmdb.api_key = os.getenv("TMB_API_KEY")
-#tmdb_m = tmdb_movie()
-#popular = tmdb_m.popular()
-#for p in popular:
-    #print(p.title)
-
-#imdb = IMDbData(get_input_without_args(input));
-#movie = Movie(imdb.title, imdb.director, imdb.stars, imdb.plot, imdb.genre, imdb.rating, imdb.url, imdb.year, imdb.runtime, is_title_on_netflix(input))
 
 #handle_excel_save(ExcelData.wb_path, movie, bool(re.search("true", input, re.IGNORECASE)))
