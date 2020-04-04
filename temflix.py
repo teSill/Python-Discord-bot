@@ -17,7 +17,7 @@ from excel_manager import handle_excel_save
 #print("Loading movie data...")
 
 class Movie:
-    def __init__(self, title, director, stars, plot, genre, imdb_rating, imdb_link, year, runtime, is_on_netflix):
+    def __init__(self, title, director, stars, plot, genre, imdb_rating, imdb_link, year, runtime):
         self.title = title
         self.director = director
         self.stars = stars
@@ -27,7 +27,7 @@ class Movie:
         self.imdb_link = imdb_link
         self.year = year
         self.runtime = runtime
-        self.is_on_netflix = is_on_netflix
+        #self.is_on_netflix = self.is_title_on_netflix
 
     def is_title_on_netflix(self):
         title_lowercase = self.title.lower()
@@ -49,7 +49,6 @@ class ExcelData:
     dir_path = str(Path.home())
     wb_path = os.path.join(dir_path, "temflix_movie_list.xlsx")
 
-print("hmm")
 #tmdb = TMDb()
 #tmdb.api_key = os.getenv("TMB_API_KEY")
 #tmdb_m = tmdb_movie()
