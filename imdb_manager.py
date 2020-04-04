@@ -16,90 +16,56 @@ class IMDbData(object):
         self.url = self.get_url()
 
     def set_instance(self):
-        try:
-            return IMDb()
-        except IMDbError as e:
-            print("Couldn't initialize the IMDb API: " + e)
+        return IMDb()
 
     def search_movie(self, title):
-        try:
-            movie_title = self.instance.search_movie(title)[0]
-            return movie_title
-        except IMDbError as e:
-            print("Couldn't find movie on IMDb: " + e)
-
+        return self.instance.search_movie(title)[0]
+    
     def get_movie(self, movie_id):
-        try:
-            movie = self.instance.get_movie(movie_id)
-            return movie
-        except IMDbError as e:
-            print("Couldn't get movie from IMDb: " + e)
+        return self.instance.get_movie(movie_id)
             
     def get_title(self):
-        try:
-            title = self.imdb_movie.get("title")
-            return title if title is not None else "Not found"
-        except IMDbError as e:
-            print("Couldn't get movie title from IMDb: " + e)
+        return self.imdb_movie.get("title")
             
     def get_director(self):
-        try:
-            director_data = self.imdb_movie.get("director")
-            director = director_data[0] if director_data is not None else "Not found"
-            return str(director)
-        except IMDbError as e:
-            print("Couldn't find the movies' directors on IMDb: " + e)
+        director_data = self.imdb_movie.get("director")
+        director = director_data[0] if director_data is not None else "Not found"
+        return str(director)
 
     def get_stars(self):
-        try:
-            cast = self.imdb_movie.get('cast')
-            topActors = 5
-            stars = []
-            for actor in cast[:topActors]:
-                stars.append(actor['name'])
-            return ", ".join(stars)
-        #todo can shorten this ^ i think
-        except IMDbError as e:
-            print("Couldn't get the movies' rating from IMDb: " + e)
+        cast = self.imdb_movie.get('cast')
+        
+        if cast is None:
+            return "Not found"
+            
+        topActors = 5
+        stars = []
+        for actor in cast[:topActors]:
+            stars.append(actor['name'])
+            
+        return ", ".join(stars)
 
     def get_plot(self):
-        try:
-            plot = self.imdb_movie.get("plot")[0]
-            return plot
-        except IMDbError as e:
-            print("Couldn't find the movies' plot on IMDb: " + e)
+        plot_data = self.imdb_movie.get("plot")
+        plot = plot_data[0] if plot_data is not None else "Not found"
+        return plot
             
     def get_rating(self):
-        try:
-            return str("%s/10" % self.imdb_movie.get("rating"))
-        except IMDbError as e:
-            print("Couldn't get the movies' rating from IMDb: " + e)
+        return str("%s/10" % self.imdb_movie.get("rating"))
             
     def get_genres(self):
-        try:
-            return ", ".join(self.imdb_movie.get("genre"))
-        except IMDbError as e:
-            print("Couldn't get the movies' genres from IMDb: " + e)
+        return ", ".join(self.imdb_movie.get("genre"))
 
     def get_year(self):
-        try:
-            return self.imdb_movie.get("year")
-        except IMDbError as e:
-            print("Couldn't get the movies' release date from IMDb: " + e)
+        return self.imdb_movie.get("year")
 
     def get_runtime(self):
-        try:
-            return str(self.imdb_movie.get("runtime")[0]) + "min"
-        except IMDbError as e:
-            print("Couldn't get the movies' runtime from IMDb: " + e)
+        runtime_data = self.imdb_movie.get("runtime")
+        runtime = str(runtime_data[0]) + "min" if runtime_data is not None else "Not found"
+        return runtime
 
     def get_url(self):
-        try:
-            return self.instance.get_imdbURL(self.movie)
-        except IMDbError as e:
-            print("Couldn't get the movies' URL from IMDb: " + e)
+        return self.instance.get_imdbURL(self.movie)
             
-    def is_series(self):
-        self.instance.update(self.movie, "episodes")
-        return len(self.movie["episodes"]) > 1
+    
         
