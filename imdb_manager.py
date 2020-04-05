@@ -50,6 +50,8 @@ class IMDbData(object):
     def get_plot(self):
         plot_data = self.imdb_movie.get("plot")
         plot = plot_data[0] if plot_data is not None else "Not found"
+        if "::" in plot:
+            plot = plot.split("::")[0]
         return plot
             
     def get_rating(self):

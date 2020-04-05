@@ -4,6 +4,7 @@ import textwrap
 from temflix import Movie
 from imdb_manager import IMDbData
 from tmdb_manager import TMDB
+import tasks
 
 TOKEN = os.environ.get('DISCORD_TOKEN')
 prefix = "!temflix"
@@ -18,8 +19,21 @@ class DiscordClient(discord.Client):
 
         message.content = message.content.lower()
 
-        if message.content.startswith("%s search" % prefix):
-            movie_title = (message.content.split(" search"))[1]
+        dog = "🐶"
+        eggplant = "🍆"
+        smirk = "😏"
+        kiss = "😘"
+        if "Baudrillard" in str(message.author) or "Jmoi" in str(message.author):
+            await message.add_reaction(dog)
+        elif "Temsei" in str(message.author):
+            await message.add_reaction(eggplant)
+        elif "Linn" in str(message.author):
+            await message.add_reaction(eggplant)
+            await message.add_reaction(smirk)
+            await message.add_reaction(kiss)
+            
+        if message.content.startswith("%s search" % prefix) or message.content.startswith("%s find" % prefix):
+            movie_title = message.content.split(" search")[1] if "search" in message.content else message.content.split(" find")[1]
             await message.channel.send("Just a sec, looking up '%s'..." % movie_title)
 
             try:
@@ -45,7 +59,7 @@ class DiscordClient(discord.Client):
         if message.content.startswith("%s help" % prefix) or message.content.startswith("%s commands" % prefix):
             embedded_msg = discord.Embed(title="Help", description="temflix is a bot with deep interest and knowledge in the entertainment industry! Here's a list of its current commands:", color=0x00ff00)
             embedded_msg.add_field(name="'!temflix help' or '!temflix commands'", value="Opens up this panel.", inline=False)
-            embedded_msg.add_field(name="'!temlix search movie''", value="eg. '!temflix search goodfellas'. This will return a set of handy info about the movie.", inline=False)
+            embedded_msg.add_field(name="'!temlix search movie' or '!temlix find movie'", value="eg. '!temflix search goodfellas'. This will return a set of handy info about the movie.", inline=False)
             embedded_msg.add_field(name="'!temflix popular'", value="Displays 20 of the currently most popular movies.", inline=False)
 
             await message.channel.send(embed = embedded_msg)
@@ -58,6 +72,7 @@ class DiscordClient(discord.Client):
                 embedded_msg.add_field(name='%s.'% index, value=pop.title, inline=True)
 
             await message.channel.send(embed = embedded_msg)
+            
             
 client = DiscordClient()
 client.run(TOKEN)
