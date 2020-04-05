@@ -12,7 +12,6 @@ prefix = "!temflix"
 class DiscordClient(discord.Client):
     async def on_ready(self):
         print(f'{self.user} has gone online!')
-        self.reactions_enabled = True
 
     async def on_message(self, message):
         if (message.author == self.user):
