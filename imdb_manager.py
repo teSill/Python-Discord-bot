@@ -1,5 +1,8 @@
 from imdb import IMDb, IMDbError, utils
 import urllib
+from utils import Utility
+import random
+import re
 
 instance = IMDb()
 
@@ -74,9 +77,49 @@ class IMDbMovieData:
             
 class IMDbActorData:
     def __init__(self, name):
-        self.actor = self.search_actor()
+        self.actor_obj = self.search_actor_name(name)
+        self.id = self.actor_obj.personID
+        #self.person_obj = instance.get_person(self.actor_obj.personID)
+        #self.filmography = self.get_filmography()
+        self.biography = self.get_biography()
+        self.thumbnail = self.get_thumbnail()
+        self.cover = self.get_full_size_image()
+        #self.awards = self.get_awards()
 
-    def search_actor(self, name):
-        return instance.search_person(name)
+    def search_actor_name(self, name):
+        return instance.search_person(name)[0]
+
+    def get_filmography(self):
+        person = instance.get_person(self.id)
+        movies = []
+        
+        for index,movie in enumerate(person['filmography']["actor"]):
+            if index == 5:
+                break
+            
+            movies.append(movie["title"])
+        return movies
+
+    def get_biography(self):
+        person = instance.get_person(self.id)
+        splitted_bio = str(person["bio"]).split(".")
+        splitted_bio = [item + "." for item in splitted_bio]
+
+        mini_bio = splitted_bio[:5]
+        mini_bio[2] = mini_bio[2] + "\n\n"
+        mini_bio_str = "".join(mini_bio)
+        return mini_bio_str[2:]
+
+    def get_thumbnail(self):
+        person = instance.get_person(self.id)
+        return person["headshot"]
+
+    def get_full_size_image(self):
+        person = instance.get_person(self.id)
+        return person["full-size headshot"]
+
+    def get_awards(self):
+        pass
+        
         
         

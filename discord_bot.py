@@ -11,22 +11,42 @@ prefix = "!temflix"
 
 class DiscordClient(discord.Client):
     async def on_ready(self):
-        print(f'{self.user} has gone online!')
+        print(f'{self.user} has come online!')
 
     async def on_message(self, message):
         if (message.author == self.user):
             return
 
+        async def find_actor(name, message):
+            actor_name = movie_title = message.content.split("%s " % prefix)[1]
+            try:
+                actor = IMDbActorData(actor_name)
+            except:
+                return
+
+            embedded_msg = discord.Embed(title=str(actor.actor_obj), description="%s" % str(actor.biography), color=0x00ff00)
+            embedded_msg.set_thumbnail(url=actor.thumbnail)
+            embedded_msg.set_image(url=actor.cover)
+            #for index, movie in enumerate(actor.filmography, start=1):
+                #embedded_msg.add_field(name="%s." % index, value=movie, inline=False)
+
+            await message.channel.send(embed = embedded_msg)
+
         message.content = message.content.lower()
 
-        if message.content.startswith("%s search" % prefix) or message.content.startswith("%s find" % prefix):
-            movie_title = message.content.split(" search")[1] if "search" in message.content else message.content.split(" find")[1]
-            await message.channel.send("Just a second, looking up '%s'..." % movie_title)
+        if message.content.startswith("%s " % prefix):
+            movie_title = message.content.split("%s " % prefix)[1]
+            await message.channel.send("Looking up '%s' - just a second!" % movie_title)
 
             try:
                 imdb = IMDbMovieData(movie_title);
             except:
-                await message.channel.send("Sorry, I couldn't find a movie with that query!")
+                print("Couldn't find a movie with given query. Trying to find an actor with it...")
+                #try:
+                await find_actor(movie_title, message)
+                #except:
+                    #print("Couldn't find an actor either")
+                    #await message.channel.send("Sorry, I couldn't find a result with that query!")
                 return
             
             movie = Movie(imdb.title, imdb.director, imdb.stars, imdb.plot, imdb.genre, imdb.rating, imdb.url, imdb.year, imdb.runtime, imdb.image)
@@ -61,16 +81,25 @@ class DiscordClient(discord.Client):
             await message.channel.send(embed = embedded_msg)
 
         if message.content.startswith("%s actor" % prefix) or message.content.startswith("%s actress" % prefix):
-            actor_name = movie_title = message.content.split(" actor")[1] if "actor" in message.content else message.content.split(" actress")[1]
-
+            actor_name = movie_title = message.content.split(" actor ")[1] if "actor" in message.content else message.content.split(" actress ")[1]
+            await message.channel.send("Looking up '%s' - just a second!" % movie_title)
             #try:
             actor = IMDbActorData(actor_name)
             #except:
                 #await message.channel.send("Sorry, I couldn't find an actor/actress with that query!")
                 #return
 
-            await message.channel.send("I found: " + actor.name)
-                
+            embedded_msg = discord.Embed(title=str(actor.actor_obj), description="%s" % str(actor.biography), color=0x00ff00)
+            embedded_msg.set_thumbnail(url=actor.thumbnail)
+            embedded_msg.set_image(url=actor.cover)
+            #for index, movie in enumerate(actor.filmography, start=1):
+                #embedded_msg.add_field(name="%s." % index, value=movie, inline=False)
+
+            await message.channel.send(embed = embedded_msg)
+
+        if message.content == "%s rep" % prefix:
+            await message.channel.send("https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360034625773-Report-a-Player-After-a-Game?flash_digest=2a9ac715940d3c51894bd52ba63fd43e65324ab8")
+
             
 client = DiscordClient()
 client.run(TOKEN)
