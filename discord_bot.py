@@ -60,7 +60,6 @@ class DiscordClient(discord.Client):
 
             await message.channel.send(embed = embedded_msg)
 
-
         if message.content.startswith("%s actor" % prefix) or message.content.startswith("%s actress" % prefix):
             actor_name = movie_title = message.content.split(" actor")[1] if "actor" in message.content else message.content.split(" actress")[1]
 
