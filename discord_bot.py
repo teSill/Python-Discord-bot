@@ -21,7 +21,7 @@ class DiscordClient(discord.Client):
 
         if message.content.startswith("%s search" % prefix) or message.content.startswith("%s find" % prefix):
             movie_title = message.content.split(" search")[1] if "search" in message.content else message.content.split(" find")[1]
-            await message.channel.send("Just a sec, looking up '%s'..." % movie_title)
+            await message.channel.send("Just a second, looking up '%s'..." % movie_title)
 
             try:
                 imdb = IMDbMovieData(movie_title);
