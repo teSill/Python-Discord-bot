@@ -102,6 +102,11 @@ class IMDbActorData:
 
     def get_biography(self):
         person = instance.get_person(self.id)
+        if person is None:
+            return "Not found"
+        #if person["bio"] is not str:
+            #return "No biography found"
+        
         splitted_bio = str(person["bio"]).split(".")
         splitted_bio = [item + "." for item in splitted_bio]
 
