@@ -1,0 +1,2 @@
+class Utility:
+    pass
