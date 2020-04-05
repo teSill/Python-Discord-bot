@@ -5,7 +5,6 @@ import sys
 from win32com.client import Dispatch
 from pathlib import Path
 import re
-from imdb_manager import IMDbData
 from excel_manager import handle_excel_save
 #from tmdbv3api import TMDb
 #from tmdbv3api import Movie as tmdb_movie

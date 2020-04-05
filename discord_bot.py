@@ -2,7 +2,7 @@ import os
 import discord
 import textwrap
 from temflix import Movie
-from imdb_manager import IMDbData
+from imdb_manager import IMDbMovieData, IMDbActorData
 from tmdb_manager import TMDB
 import tasks
 
@@ -12,6 +12,7 @@ prefix = "!temflix"
 class DiscordClient(discord.Client):
     async def on_ready(self):
         print(f'{self.user} has gone online!')
+        self.reactions_enabled = True
 
     async def on_message(self, message):
         if (message.author == self.user):
@@ -19,25 +20,12 @@ class DiscordClient(discord.Client):
 
         message.content = message.content.lower()
 
-        dog = "🐶"
-        eggplant = "🍆"
-        smirk = "😏"
-        kiss = "😘"
-        if "Baudrillard" in str(message.author) or "Jmoi" in str(message.author):
-            await message.add_reaction(dog)
-        elif "Temsei" in str(message.author):
-            await message.add_reaction(eggplant)
-        elif "Linn" in str(message.author):
-            await message.add_reaction(eggplant)
-            await message.add_reaction(smirk)
-            await message.add_reaction(kiss)
-            
         if message.content.startswith("%s search" % prefix) or message.content.startswith("%s find" % prefix):
             movie_title = message.content.split(" search")[1] if "search" in message.content else message.content.split(" find")[1]
             await message.channel.send("Just a sec, looking up '%s'..." % movie_title)
 
             try:
-                imdb = IMDbData(movie_title);
+                imdb = IMDbMovieData(movie_title);
             except:
                 await message.channel.send("Sorry, I couldn't find a movie with that query!")
                 return
@@ -72,7 +60,19 @@ class DiscordClient(discord.Client):
                 embedded_msg.add_field(name='%s.'% index, value=pop.title, inline=True)
 
             await message.channel.send(embed = embedded_msg)
-            
+
+
+        if message.content.startswith("%s actor" % prefix) or message.content.startswith("%s actress" % prefix):
+            actor_name = movie_title = message.content.split(" actor")[1] if "actor" in message.content else message.content.split(" actress")[1]
+
+            #try:
+            actor = IMDbActorData(actor_name)
+            #except:
+                #await message.channel.send("Sorry, I couldn't find an actor/actress with that query!")
+                #return
+
+            await message.channel.send("I found: " + actor.name)
+                
             
 client = DiscordClient()
 client.run(TOKEN)

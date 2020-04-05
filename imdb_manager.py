@@ -1,9 +1,10 @@
 from imdb import IMDb, IMDbError, utils
 import urllib
 
-class IMDbData(object):
+instance = IMDb()
+
+class IMDbMovieData:
     def __init__(self, title):
-        self.instance = self.set_instance()
         self.movie = self.search_movie(title)
         self.imdb_movie = self.get_movie(self.movie.getID())
         self.title = self.get_title()
@@ -17,14 +18,11 @@ class IMDbData(object):
         self.url = self.get_url()
         self.image = self.get_gallery()
 
-    def set_instance(self):
-        return IMDb()
-
     def search_movie(self, title):
-        return self.instance.search_movie(title)[0]
+        return instance.search_movie(title)[0]
     
     def get_movie(self, movie_id):
-        return self.instance.get_movie(movie_id)
+        return instance.get_movie(movie_id)
             
     def get_title(self):
         return self.imdb_movie.get("title")
@@ -69,10 +67,16 @@ class IMDbData(object):
         return runtime
 
     def get_url(self):
-        return self.instance.get_imdbURL(self.movie)
+        return instance.get_imdbURL(self.movie)
 
     def get_gallery(self):
         return self.imdb_movie["cover url"]
             
-    
+class IMDbActorData:
+    def __init__(self, name):
+        self.actor = self.search_actor()
+
+    def search_actor(self, name):
+        return instance.search_person(name)
+        
         
