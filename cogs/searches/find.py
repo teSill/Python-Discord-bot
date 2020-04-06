@@ -7,7 +7,7 @@ class Find(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(aliases=["search"])
     async def find(self, ctx, *, user_input):
         await ctx.channel.send("Looking up '%s' - just a second!" % user_input)
         try:
@@ -18,7 +18,7 @@ class Find(commands.Cog):
                 await GlobalMethods.display_actor_in_chat(user_input, ctx)
             except:
                 print("Couldn't find an actor either")
-                #await ctx.channel.send("Sorry, I couldn't find a result with that query!")
+                await ctx.channel.send("Sorry, I couldn't find a result with that query!")
             return
 
 
