@@ -25,7 +25,7 @@ async def add_to_watchlist(ctx, movie_obj):
             movie_obj.title: movie_obj.url
         })
 
-        await user.add_to_save(data)
+        await user.update_watchlist(data)
         await ctx.message.add_reaction("👍")
 
 

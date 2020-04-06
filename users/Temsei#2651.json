@@ -7,11 +7,6 @@
         }
     ],
     "Watchlist": [
-        {
-            "Parasite": "https://www.imdb.com/title/tt6751668/",
-            "Breaking Bad": "https://www.imdb.com/title/tt0903747/",
-            "Better Call Saul": "https://www.imdb.com/title/tt3032476/",
-            "Westworld": "https://www.imdb.com/title/tt0475784/"
-        }
+        {}
     ]
 }

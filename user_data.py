@@ -48,7 +48,7 @@ class UserData:
             with open(self.save_path, "w") as db_file:
                 json.dump(default_json_obj, db_file, ensure_ascii=False, indent=4)
 
-    async def add_to_save(self, data):
+    async def update_watchlist(self, data):
         with open(os.path.join(user_dir, f"{self.username}.json"), "w") as db_file:
             json.dump(data, db_file, ensure_ascii=False, indent=4)
 
