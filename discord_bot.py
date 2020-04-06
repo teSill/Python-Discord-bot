@@ -51,7 +51,7 @@ async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 
-#@client.command(pass_context=True, help="Finds a movie or actor/actress with your command. Movies are prioritized.")
+@client.command(pass_context=True, help="Finds a movie or actor/actress with your command. Movies are prioritized.")
 async def find(ctx, *, user_input):
     await ctx.channel.send("Looking up '%s' - just a second!" % user_input)
     try:
@@ -75,7 +75,7 @@ async def find_movie(ctx, *, user_input):
         await ctx.send("Sorry, I couldn't find a movie with that query!")
 
 
-@client.command(aliases=["findactor", "findactress", "find actor"], pass_context=True)
+@client.command(aliases=["findactor", "findactress"], pass_context=True)
 async def find_actor(ctx, *, user_input):
     await ctx.send("Looking up '%s' - just a second!" % user_input)
     try:
