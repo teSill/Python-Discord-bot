@@ -11,6 +11,15 @@ class UserData:
     is_premium = False
     max_watchlist_size = 50 if is_premium else 10
 
+    default_json_obj = {
+            "Watchlist": [{
+
+            }],
+            "UserData": [{
+
+            }]
+        }
+
     @classmethod
     def user_save_exists(cls, username):
         for filename in glob.iglob(f"{UserData.user_dir}/*", recursive=True):
@@ -19,13 +28,16 @@ class UserData:
         return False
 
     @classmethod
-    def create_user_save(cls, username):
+    async def create_user_save(cls, username):
         with open(os.path.join(UserData.user_dir, f"{username}.json"), "w") as db_file:
-            db_file.write(json.dumps())
+            json.dump(UserData.default_json_obj, db_file, ensure_ascii=False, indent=4)
 
     @classmethod
-    def add_to_save(cls, username, data):
-        with open(os.path.join(UserData.user_dir, f"{username}.json"), "w", encoding="utf-8") as db_file:
+    async def add_to_save(cls, username, data):
+        if not UserData.user_save_exists(username):
+            await UserData.create_user_save(str(username))
+
+        with open(os.path.join(UserData.user_dir, f"{username}.json"), "w") as db_file:
             json.dump(data, db_file, ensure_ascii=False, indent=4)
 
 

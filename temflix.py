@@ -15,9 +15,9 @@ async def on_ready():
     print(f"{bot_name} has come online!")
 
 
-@bot.event
-async def on_command_error(ctx, error):
-    await ctx.send(error)
+#@bot.event
+#async def on_command_error(ctx, error):
+    #await ctx.send(error)
 
 
 # @bot.command(pass_context=True)
