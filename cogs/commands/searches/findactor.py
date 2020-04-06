@@ -14,7 +14,8 @@ class FindActor(commands.Cog):
             await GlobalMethods.display_actor_in_chat(user_input, ctx)
         except:
             await ctx.channel.send(
-                "Sorry, I couldn't find an actor/actress with that query! They probably aren't registered on IMDb or have an incomplete profile.")
+                "Sorry, I couldn't find an actor/actress with that query! They probably aren't registered on IMDb or "
+                "have an incomplete profile.")
 
 
 def setup(client):

@@ -8,7 +8,7 @@ bot_name = "Temflix"
 custom_commands = ["find", "commands", "popular", "findactor", "findactress", "findmovie"]
 
 bot = commands.Bot(command_prefix='!temflix ')
-
+bot.remove_command("help")
 
 @bot.event
 async def on_ready():
@@ -20,12 +20,12 @@ async def on_command_error(ctx, error):
     await ctx.send(error)
 
 
-@bot.command(pass_context=True)
+# @bot.command(pass_context=True)
 async def load(ctx, extension):
     bot.load_extension(f"cogs.{extension}")
 
 
-@bot.command(pass_context=True)
+# @bot.command(pass_context=True)
 async def unload(ctx, extension):
     bot.unload_extension(f"cogs.{extension}")
 
