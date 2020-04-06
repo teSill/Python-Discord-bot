@@ -72,6 +72,9 @@ class UserData:
             data = json.load(f)
             return data["Watchlist"][0]
 
+    def get_full_path_for_edit(self):
+        return f"{user_dir}/{self.username}.json"
+
     @classmethod
     def get_new_user_instance_by_name(cls, username):
         return UserData(username)
