@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from discord_globals import GlobalMethods
+from globals import GlobalDiscordMethods
 
 
 class FindMovie(commands.Cog):
@@ -11,7 +11,7 @@ class FindMovie(commands.Cog):
     async def find_movie(self, ctx, *, user_input):
         await ctx.send("Looking up '%s' - just a second!" % user_input)
         try:
-            await GlobalMethods.display_movie_in_chat(user_input, ctx)
+            await GlobalDiscordMethods.display_movie_in_chat(user_input, ctx)
         except:
             await ctx.send("Sorry, I couldn't find a movie with that query!")
 

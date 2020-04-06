@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from discord_globals import GlobalMethods
+from globals import GlobalDiscordMethods
 
 
 class FindActress(commands.Cog):
@@ -11,7 +11,7 @@ class FindActress(commands.Cog):
     async def find_actress(self, ctx, *, user_input):
         await ctx.send("Looking up '%s' - just a second!" % user_input)
         try:
-            await GlobalMethods.display_actor_in_chat(user_input, ctx)
+            await GlobalDiscordMethods.display_actor_in_chat(user_input, ctx)
         except:
             await ctx.channel.send(
                 "Sorry, I couldn't find an actor/actress with that query! They probably aren't registered on IMDb or have an incomplete profile.")

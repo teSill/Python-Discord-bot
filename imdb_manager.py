@@ -6,10 +6,19 @@ import re
 
 instance = IMDb()
 
+
+def search_movie(title):
+    return instance.search_movie(title)[0]
+
+
+def get_movie(movie_id):
+    return instance.get_movie(movie_id)
+
+
 class IMDbMovieData:
     def __init__(self, title):
-        self.movie = self.search_movie(title)
-        self.imdb_movie = self.get_movie(self.movie.getID())
+        self.movie = search_movie(title)
+        self.imdb_movie = get_movie(self.movie.getID())
         self.title = self.get_title()
         self.director = self.get_director()
         self.stars = self.get_stars()
@@ -21,15 +30,9 @@ class IMDbMovieData:
         self.url = self.get_url()
         self.image = self.get_gallery()
 
-    def search_movie(self, title):
-        return instance.search_movie(title)[0]
-    
-    def get_movie(self, movie_id):
-        return instance.get_movie(movie_id)
-            
     def get_title(self):
         return self.imdb_movie.get("title")
-            
+
     def get_director(self):
         director_data = self.imdb_movie.get("director")
         director = director_data[0] if director_data is not None else "Not found"
@@ -37,15 +40,15 @@ class IMDbMovieData:
 
     def get_stars(self):
         cast = self.imdb_movie.get('cast')
-        
+
         if cast is None:
             return "Not found"
-            
-        topActors = 5
+
+        top_actors = 5
         stars = []
-        for actor in cast[:topActors]:
+        for actor in cast[:top_actors]:
             stars.append(actor['name'])
-            
+
         return ", ".join(stars)
 
     def get_plot(self):
@@ -54,10 +57,10 @@ class IMDbMovieData:
         if "::" in plot:
             plot = plot.split("::")[0]
         return plot
-            
+
     def get_rating(self):
         return str("%s/10" % self.imdb_movie.get("rating"))
-            
+
     def get_genres(self):
         return ", ".join(self.imdb_movie.get("genre"))
 
@@ -74,29 +77,31 @@ class IMDbMovieData:
 
     def get_gallery(self):
         return self.imdb_movie["cover url"]
-            
+
+
+def search_actor_name(name):
+    return instance.search_person(name)[0]
+
+
 class IMDbActorData:
     def __init__(self, name):
-        self.actor_obj = self.search_actor_name(name)
+        self.actor_obj = search_actor_name(name)
         self.id = self.actor_obj.personID
-        #self.person_obj = instance.get_person(self.actor_obj.personID)
-        #self.filmography = self.get_filmography()
+        # self.person_obj = instance.get_person(self.actor_obj.personID)
+        # self.filmography = self.get_filmography()
         self.biography = self.get_biography()
         self.thumbnail = self.get_thumbnail()
         self.cover = self.get_full_size_image()
-        #self.awards = self.get_awards()
-
-    def search_actor_name(self, name):
-        return instance.search_person(name)[0]
+        # self.awards = self.get_awards()
 
     def get_filmography(self):
         person = instance.get_person(self.id)
         movies = []
-        
-        for index,movie in enumerate(person['filmography']["actor"]):
+
+        for index, movie in enumerate(person['filmography']["actor"]):
             if index == 5:
                 break
-            
+
             movies.append(movie["title"])
         return movies
 
@@ -104,9 +109,9 @@ class IMDbActorData:
         person = instance.get_person(self.id)
         if person is None:
             return "Not found"
-        #if person["bio"] is not str:
-            #return "No biography found"
-        
+        # if person["bio"] is not str:
+        # return "No biography found"
+
         splitted_bio = str(person["bio"]).split(".")
         splitted_bio = [item + "." for item in splitted_bio]
 
@@ -125,6 +130,3 @@ class IMDbActorData:
 
     def get_awards(self):
         pass
-        
-        
-        
