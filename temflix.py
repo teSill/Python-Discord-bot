@@ -2,6 +2,7 @@ from pathlib import PurePath
 import os.path
 import glob
 from discord.ext import commands
+from user_data import UserData
 
 TOKEN = os.environ.get('DISCORD_TOKEN')
 bot_name = "Temflix"
@@ -9,6 +10,7 @@ custom_commands = ["find", "commands", "popular", "findactor", "findactress", "f
 
 bot = commands.Bot(command_prefix='!temflix ')
 bot.remove_command("help")
+
 
 @bot.event
 async def on_ready():
@@ -30,9 +32,9 @@ async def unload(ctx, extension):
     bot.unload_extension(f"cogs.{extension}")
 
 
-@bot.command(pass_context=True)
-async def on_message(self, message):
-    if message.author == self.user:
+#@bot.event
+async def on_message(message):
+    if message.author == bot.user:
         return
 
     message.content = message.content.lower()

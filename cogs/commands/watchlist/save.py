@@ -1,22 +1,22 @@
 from discord.ext import commands
-from globals import GlobalDiscordMethods, UserData
+from globals import GlobalDiscordMethods
 import json
-import glob
+from user_data import UserData, user_dir
 
 
 async def add_to_watchlist(ctx, movie_obj):
-    if not UserData.user_save_exists(str(ctx.author)):
-        await UserData.create_user_save(str(ctx.author))
+    username = str(ctx.author)
+    user = UserData.get_new_user_instance_by_name(username)
 
-    with open(f"{UserData.user_dir}/{str(ctx.author)}.json", "r+") as f:
+    with open(f"{user_dir}/{username}.json", "r+") as f:
         data = json.load(f)
         watchlist = data["Watchlist"][0]
 
         if any(movie_obj.title in title for title in watchlist):
             return
 
-        if len(watchlist) == UserData.max_watchlist_size:
-            msg = "Your watchlist is full! Try deleting some entries with '!temflix delete title'." if UserData.is_premium else \
+        if len(watchlist) == user.max_watchlist_size:
+            msg = "Your watchlist is full! Try deleting some entries with '!temflix delete title'." if user.is_premium else \
                 "Your watchlist is full! Premium members can hold 5 times as many titles."
             await ctx.send(msg)
             return
@@ -25,7 +25,7 @@ async def add_to_watchlist(ctx, movie_obj):
             movie_obj.title: movie_obj.url
         })
 
-        await UserData.add_to_save(str(ctx.author), data)
+        await user.add_to_save(data)
         await ctx.message.add_reaction("👍")
 
 

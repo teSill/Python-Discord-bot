@@ -1,11 +1,15 @@
 {
-    "Watchlist": [
+    "UserData": [
         {
-            "Breaking Bad": "https://www.imdb.com/title/tt0903747/",
-            "Parasite": "https://www.imdb.com/title/tt6751668/"
+            "is_premium": false,
+            "experience": 0,
+            "level": 0
         }
     ],
-    "UserData": [
-        {}
+    "Watchlist": [
+        {
+            "Parasite": "https://www.imdb.com/title/tt6751668/",
+            "Breaking Bad": "https://www.imdb.com/title/tt0903747/"
+        }
     ]
 }

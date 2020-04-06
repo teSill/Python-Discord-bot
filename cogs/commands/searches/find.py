@@ -9,6 +9,7 @@ class Find(commands.Cog):
 
     @commands.command(aliases=["search"])
     async def find(self, ctx, *, user_input):
+        print("lets see")
         await ctx.channel.send("Looking up '%s' - just a second!" % user_input)
         try:
             await GlobalDiscordMethods.display_movie_in_chat(user_input, ctx)

@@ -1,44 +1,5 @@
 import discord
 from imdb_manager import IMDbMovieData, IMDbActorData
-import glob
-import os
-import json
-
-
-class UserData:
-    user_dir = "./users"
-
-    is_premium = False
-    max_watchlist_size = 50 if is_premium else 10
-
-    default_json_obj = {
-            "Watchlist": [{
-
-            }],
-            "UserData": [{
-
-            }]
-        }
-
-    @classmethod
-    def user_save_exists(cls, username):
-        for filename in glob.iglob(f"{UserData.user_dir}/*", recursive=True):
-            if username in filename:
-                return True
-        return False
-
-    @classmethod
-    async def create_user_save(cls, username):
-        with open(os.path.join(UserData.user_dir, f"{username}.json"), "w") as db_file:
-            json.dump(UserData.default_json_obj, db_file, ensure_ascii=False, indent=4)
-
-    @classmethod
-    async def add_to_save(cls, username, data):
-        if not UserData.user_save_exists(username):
-            await UserData.create_user_save(str(username))
-
-        with open(os.path.join(UserData.user_dir, f"{username}.json"), "w") as db_file:
-            json.dump(data, db_file, ensure_ascii=False, indent=4)
 
 
 class GlobalDiscordMethods:
