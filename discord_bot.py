@@ -4,6 +4,7 @@ import glob
 from discord.ext import commands
 
 TOKEN = os.environ.get('DISCORD_TOKEN')
+bot_name = "Temflix"
 custom_commands = ["find", "commands", "popular", "findactor", "findactress", "findmovie"]
 
 bot = commands.Bot(command_prefix='!temflix ')
@@ -11,7 +12,7 @@ bot = commands.Bot(command_prefix='!temflix ')
 
 @bot.event
 async def on_ready():
-    print("Temflix has come online!")
+    print(f"{bot_name} has come online!")
 
 
 @bot.event
@@ -42,6 +43,7 @@ for filename in glob.iglob('./cogs/**', recursive=True):
     if filename.endswith(".py"):
         file_name = os.path.basename(filename[:-3])
         parent_folder_name = PurePath(filename).parent.name
-        bot.load_extension(f"cogs.{parent_folder_name}.{file_name}")
+        grandparent_folder_name = PurePath(filename).parent.parent.name
+        bot.load_extension(f"cogs.{grandparent_folder_name}.{parent_folder_name}.{file_name}")
 
 bot.run(TOKEN)
