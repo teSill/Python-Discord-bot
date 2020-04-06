@@ -1,6 +1,5 @@
 import discord
 from imdb_manager import IMDbMovieData, IMDbActorData
-from temflix import Movie
 
 class GlobalMethods():
     async def display_actor_in_chat(name, ctx):
@@ -17,17 +16,15 @@ class GlobalMethods():
 
     async def display_movie_in_chat(title, ctx):
         imdb = IMDbMovieData(title)
-        movie = Movie(imdb.title, imdb.director, imdb.stars, imdb.plot, imdb.genre, imdb.rating, imdb.url, imdb.year,
-                      imdb.runtime, imdb.image)
 
-        embedded_msg = discord.Embed(title=movie.title, description=movie.plot, color=0x00ff00)
+        embedded_msg = discord.Embed(title=imdb.title, description=imdb.plot, color=0x00ff00)
         embedded_msg.set_thumbnail(url=movie.image)
-        embedded_msg.add_field(name="Director", value=movie.director, inline=False)
-        embedded_msg.add_field(name="Cast", value=movie.stars, inline=False)
-        embedded_msg.add_field(name="Genres", value=movie.genre, inline=False)
-        embedded_msg.add_field(name="IMDb rating", value=movie.imdb_rating, inline=False)
-        embedded_msg.add_field(name="IMDb link", value=movie.imdb_link, inline=False)
-        embedded_msg.add_field(name="Release year", value=movie.year, inline=False)
-        embedded_msg.add_field(name="Runtime", value=movie.runtime, inline=False)
+        embedded_msg.add_field(name="Director", value=imdb.director, inline=False)
+        embedded_msg.add_field(name="Cast", value=imdb.stars, inline=False)
+        embedded_msg.add_field(name="Genres", value=imdb.genre, inline=False)
+        embedded_msg.add_field(name="IMDb rating", value=imdb.rating, inline=False)
+        embedded_msg.add_field(name="IMDb link", value=imdb.url, inline=False)
+        embedded_msg.add_field(name="Release year", value=imdb.year, inline=False)
+        embedded_msg.add_field(name="Runtime", value=imdb.runtime, inline=False)
 
         await ctx.send(embed=embedded_msg)

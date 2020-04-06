@@ -1,52 +1,49 @@
-import os
-import openpyxl
-from openpyxl import load_workbook
-import sys
-from win32com.client import Dispatch
-from pathlib import Path
-import re
-from excel_manager import handle_excel_save
-#from tmdbv3api import TMDb
-#from tmdbv3api import Movie as tmdb_movie
+from pathlib import PurePath
+import os.path
+import glob
+from discord.ext import commands
 
-#input = str(" ".join(sys.argv[1:]))
-#if len(input) < 1:
-  #  print("Try typing a movie name!")
- #   sys.exit(0)
-#print("Loading movie data...")
+TOKEN = os.environ.get('DISCORD_TOKEN')
+bot_name = "Temflix"
+custom_commands = ["find", "commands", "popular", "findactor", "findactress", "findmovie"]
 
-class Movie:
-    def __init__(self, title, director, stars, plot, genre, imdb_rating, imdb_link, year, runtime, image):
-        self.title = title
-        self.director = director
-        self.stars = stars
-        self.plot = plot
-        self.genre = genre
-        self.imdb_rating = imdb_rating
-        self.imdb_link = imdb_link
-        self.year = year
-        self.runtime = runtime
-        #self.is_on_netflix = self.is_title_on_netflix
-        self.image = image
+bot = commands.Bot(command_prefix='!temflix ')
+bot.remove_command("help")
 
-    def is_title_on_netflix(self):
-        title_lowercase = self.title.lower()
-        for i in range(1, ExcelData.sheet.max_row):
-            excel_title_undercase = str(ExcelData.sheet.cell(row=i, column=ExcelData.title_column).value).lower()
-            if (title_lowercase == excel_title_undercase):
-                return True
-        return False
+@bot.event
+async def on_ready():
+    print(f"{bot_name} has come online!")
 
-class ExcelData:
-    # The doc with netflix catalog
-    doc_title = "netflix_titles"
-    file_loc = "%s.xlsx" % doc_title
-    workbook = openpyxl.load_workbook(file_loc)
-    sheet = workbook[doc_title]
-    title_column = 3
 
-    # Our own watch list
-    dir_path = str(Path.home())
-    wb_path = os.path.join(dir_path, "temflix_movie_list.xlsx")
+@bot.event
+async def on_command_error(ctx, error):
+    await ctx.send(error)
 
-#handle_excel_save(ExcelData.wb_path, movie, bool(re.search("true", input, re.IGNORECASE)))
+
+# @bot.command(pass_context=True)
+async def load(ctx, extension):
+    bot.load_extension(f"cogs.{extension}")
+
+
+# @bot.command(pass_context=True)
+async def unload(ctx, extension):
+    bot.unload_extension(f"cogs.{extension}")
+
+
+@bot.command(pass_context=True)
+async def on_message(self, message):
+    if message.author == self.user:
+        return
+
+    message.content = message.content.lower()
+
+
+# Load cogs
+for filename in glob.iglob('./cogs/**', recursive=True):
+    if filename.endswith(".py"):
+        file_name = os.path.basename(filename[:-3])
+        parent_folder_name = PurePath(filename).parent.name
+        grandparent_folder_name = PurePath(filename).parent.parent.name
+        bot.load_extension(f"cogs.{grandparent_folder_name}.{parent_folder_name}.{file_name}")
+
+bot.run(TOKEN)
