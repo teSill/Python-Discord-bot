@@ -24,7 +24,7 @@ async def unload(ctx, extension):
     client.unload_extension(f"cogs.{extension}")
 
 for filename in glob.iglob('./cogs/**', recursive=True):
-    if os.path.isfile(filename) and filename.endswith(".py") and "__" not in filename:
+    if filename.endswith(".py"):
         file_name = os.path.basename(filename[:-3])
         parent_folder_name = PurePath(filename).parent.name
         client.load_extension(f"cogs.{parent_folder_name}.{file_name}")
