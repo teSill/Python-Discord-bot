@@ -18,10 +18,14 @@ class Watchlist(commands.Cog):
             watchlist = data["Watchlist"][0]
 
             embedded_msg = discord.Embed(title=f"{username}'s watchlist", description="", color=0x00ff00)
+
+            index = 1
             for key, value in watchlist.items():
-                embedded_msg.add_field(name=key, value=value, inline=False)
+                embedded_msg.add_field(name=f"{index}. {key}", value=value, inline=False)
+                index += 1
 
             await ctx.send(embed=embedded_msg)
+
 
 def setup(client):
     client.add_cog(Watchlist(client))

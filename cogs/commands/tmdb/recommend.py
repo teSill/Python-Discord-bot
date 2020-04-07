@@ -17,7 +17,7 @@ class Recommend(commands.Cog):
                                      description=f"Based on your watchlist, I'm recommending you...\n\n"
                                                  f"Title: {recommended_movie.title}\n\n"
                                                  f"Plot: {recommended_movie.overview}\n\n"
-                                                 f"Rating: {recommended_movie.vote_average}",
+                                                 f"Rating: {recommended_movie.vote_average}\n",
                                      color=0x00ff00)
 
         cover_url = IMDbMovieData.get_cover_image_url(recommended_movie.title)
