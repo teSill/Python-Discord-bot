@@ -19,7 +19,8 @@ class CopyWatchlist(commands.Cog):
             watchlist = data["Watchlist"][0]
 
             if len(watchlist) is 0:
-                ctx.channel.send(f"{other_user.username} doesn't have a watchlist!")
+                await ctx.channel.send(f"{other_user.username} doesn't have a watchlist! Be sure to enter their # "
+                                       f"extension as well.")
                 return
 
             new_watchlist = watchlist
