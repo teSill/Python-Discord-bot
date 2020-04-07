@@ -14,7 +14,7 @@ class Popular(commands.Cog):
             popular_movies = TMDB.get_popular_movies()
 
             embedded_msg = discord.Embed(title="Popular movies",
-                                         description="10 currently popular movies in The Movie Database (TMDb). This "
+                                         description="10 currently popular movies on The Movie Database (TMDb). This "
                                                      "list changes daily!",
                                          color=0x00ff00)
             for index, pop in enumerate(popular_movies, start=1):

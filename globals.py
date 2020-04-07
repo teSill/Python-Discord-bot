@@ -14,6 +14,7 @@ class GlobalDiscordMethods:
 
         embedded_msg.add_field(name="IMDb page", value=actor.url, inline=False)
 
+        embedded_msg.set_footer(text=f"View more entries for this query at https://www.imdb.com/find?q={name}")
         embedded_msg.set_thumbnail(url=actor.thumbnail)
         embedded_msg.set_image(url=actor.cover)
 
@@ -33,8 +34,12 @@ class GlobalDiscordMethods:
         embedded_msg.add_field(name="IMDb rating", value=imdb.rating, inline=False)
         embedded_msg.add_field(name="IMDb link", value=imdb.url, inline=False)
         embedded_msg.add_field(name="Release year", value=imdb.year, inline=False)
-        embedded_msg.add_field(name="Runtime", value=imdb.runtime, inline=False)
+        embedded_msg.add_field(name="Runtime", value=f"{imdb.runtime}"
+                                                     f"\n\nView more entries for this query at:"
+                                                     f"\nhttps://www.imdb.com/find?q={imdb.title}"
+                                                     f"\n\nWant to add this title to your watchlist? Type '!temflix save'", inline=False)
 
-        embedded_msg.set_footer(text="Want to add this title to your watchlist? Type '!temflix save'")
+        #embedded_msg.set_footer(text=f"View more entries for this query at https://www.imdb.com/find?q={imdb.title}"
+                                     #"\n\nWant to add this title to your watchlist? Type '!temflix save'")
 
         await ctx.send(embed=embedded_msg)

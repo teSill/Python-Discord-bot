@@ -1,8 +1,4 @@
-from imdb import IMDb, IMDbError, utils
-import urllib
-from utils import Utility
-import random
-import re
+from imdb import IMDb
 
 instance = IMDb()
 

@@ -38,7 +38,7 @@ class Commands(commands.Cog):
         embedded_msg.add_field(name="'!temflix clear'",
                                value=ctx.bot.get_cog("Clear").clear.description,
                                inline=False)
-        embedded_msg.add_field(name="'!temflix recommend' or !temflix recommend n",
+        embedded_msg.add_field(name="'!temflix recommend' or !temflix recommend n'",
                                value=ctx.bot.get_cog("Recommend").recommend.description,
                                inline=False)
         await ctx.send(embed=embedded_msg)
