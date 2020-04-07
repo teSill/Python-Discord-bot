@@ -78,6 +78,12 @@ class IMDbMovieData:
     def get_gallery(self):
         return self.imdb_movie["cover url"]
 
+    @classmethod
+    def get_cover_image_url(cls, title):
+        movie = search_movie(title)
+        imdb_movie = get_movie(movie.getID())
+        return imdb_movie["cover url"]
+
 
 def search_actor_name(name):
     return instance.search_person(name)[0]

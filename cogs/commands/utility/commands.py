@@ -29,7 +29,7 @@ class Commands(commands.Cog):
         embedded_msg.add_field(name="'!temflix watchlist'",
                                value=ctx.bot.get_cog("Watchlist").watchlist.description,
                                inline=False)
-        embedded_msg.add_field(name="'!temflix copywatchlist user'",
+        embedded_msg.add_field(name="'!temflix copy user'",
                                value=ctx.bot.get_cog("CopyWatchlist").copy_watchlist.description,
                                inline=False)
         embedded_msg.add_field(name="'!temflix delete movie'",
