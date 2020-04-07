@@ -32,7 +32,7 @@ async def unload(ctx, extension):
     bot.unload_extension(f"cogs.{extension}")
 
 
-#@bot.event
+# @bot.event
 async def on_message(message):
     if message.author == bot.user:
         return

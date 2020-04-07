@@ -11,7 +11,7 @@ class Watchlist(commands.Cog):
     @commands.command()
     async def watchlist(self, ctx):
         username = str(ctx.author)
-        user = UserData.get_new_user_instance_by_name(username)
+        user = UserData.create_user_instance_by_name(username)
 
         with open(user.get_full_path_for_edit(), "r+") as f:
             data = json.load(f)

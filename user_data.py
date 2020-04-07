@@ -76,5 +76,5 @@ class UserData:
         return f"{user_dir}/{self.username}.json"
 
     @classmethod
-    def get_new_user_instance_by_name(cls, username):
+    def create_user_instance_by_name(cls, username):
         return UserData(username)

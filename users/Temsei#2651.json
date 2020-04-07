@@ -7,6 +7,11 @@
         }
     ],
     "Watchlist": [
-        {}
+        {
+            "No Time to Die": "https://www.imdb.com/title/tt2382320/",
+            "A Quiet Place Part II": "https://www.imdb.com/title/tt8332922/",
+            "Tenet": "https://www.imdb.com/title/tt6723592/",
+            "Parasite": "https://www.imdb.com/title/tt6751668/"
+        }
     ]
 }

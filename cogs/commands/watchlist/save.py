@@ -6,7 +6,7 @@ from user_data import UserData, user_dir
 
 async def add_to_watchlist(ctx, movie_obj):
     username = str(ctx.author)
-    user = UserData.get_new_user_instance_by_name(username)
+    user = UserData.create_user_instance_by_name(username)
 
     with open(user.get_full_path_for_edit(), "r+") as f:
         data = json.load(f)
