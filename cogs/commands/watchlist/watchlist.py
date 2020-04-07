@@ -8,7 +8,7 @@ class Watchlist(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(description="Displays your watchlist.")
     async def watchlist(self, ctx):
         username = str(ctx.author)
         user = UserData.create_user_instance_by_name(username)

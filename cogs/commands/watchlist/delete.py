@@ -7,7 +7,8 @@ class Delete(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=["del", "remove"], pass_context=True)
+    @commands.command(aliases=["del", "remove"], pass_context=True, description="Deletes the given title from your "
+                                                                                "watchlist.")
     async def delete(self, ctx, *, user_input):
         username = str(ctx.author)
         user = UserData.create_user_instance_by_name(username)

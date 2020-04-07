@@ -7,7 +7,8 @@ class Popular(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(description="Displays 10 of the currently most popular movies on The "
+                                  "Movie Database (IMDb)")
     async def popular(self, ctx):
         try:
             popular_movies = TMDB.get_popular_movies()

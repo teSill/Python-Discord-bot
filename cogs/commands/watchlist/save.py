@@ -33,7 +33,7 @@ class Save(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(description="Saves the last queried movie to your watchlist.")
     async def save(self, ctx):
         if GlobalDiscordMethods.latest_movie_query is None:
             await ctx.send("Search for a movie first! This command saves the last queried movie.")

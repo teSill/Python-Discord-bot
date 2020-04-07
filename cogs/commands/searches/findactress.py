@@ -7,7 +7,9 @@ class FindActress(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=["findactress"], pass_context=True)
+    @commands.command(aliases=["findactress"], pass_context=True, description="eg. '!temflix findactor rami malek'. Performs "
+                                                                       "a more detailed search than the above "
+                                                                       "command.")
     async def find_actress(self, ctx, *, user_input):
         await ctx.send("Looking up '%s' - just a second!" % user_input)
         try:

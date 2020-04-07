@@ -7,9 +7,9 @@ class Find(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=["search"])
+    @commands.command(aliases=["search"], description="eg. '!temflix find goodfellas'. Search for a movie or an "
+                                                      "actor/actress. Movies are prioritized with this query.")
     async def find(self, ctx, *, user_input):
-        print("lets see")
         await ctx.channel.send("Looking up '%s' - just a second!" % user_input)
         try:
             await GlobalDiscordMethods.display_movie_in_chat(user_input, ctx)
