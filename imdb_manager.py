@@ -15,6 +15,11 @@ def get_movie(movie_id):
     return instance.get_movie(movie_id)
 
 
+def get_movie_url(title):
+    movie = instance.search_movie(title)[0]
+    return instance.get_imdbURL(movie)
+
+
 class IMDbMovieData:
     def __init__(self, title):
         self.movie = search_movie(title)
@@ -27,7 +32,7 @@ class IMDbMovieData:
         self.genre = self.get_genres()
         self.year = self.get_year()
         self.runtime = self.get_runtime()
-        self.url = self.get_url()
+        self.url = get_movie_url(title)
         self.image = self.get_gallery()
 
     def get_title(self):
@@ -71,9 +76,6 @@ class IMDbMovieData:
         runtime_data = self.imdb_movie.get("runtime")
         runtime = str(runtime_data[0]) + "min" if runtime_data is not None else "Not found"
         return runtime
-
-    def get_url(self):
-        return instance.get_imdbURL(self.movie)
 
     def get_gallery(self):
         return self.imdb_movie["cover url"]

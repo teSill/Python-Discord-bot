@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from tmdb_manager import TMDB
-from imdb_manager import IMDbMovieData
+from imdb_manager import IMDbMovieData, get_movie_url
 from user_data import UserData
 import json
 
@@ -40,7 +40,8 @@ class Recommend(commands.Cog):
 
         embedded_msg = discord.Embed(title=f"Recommended title: {recommended_movie.title}",
                                      description=f"\n\nPlot: \n\n{recommended_movie.overview}\n\n"
-                                                 f"TMDb rating: \n\n{recommended_movie.vote_average}\n",
+                                                 f"TMDb rating: \n{recommended_movie.vote_average}\n\n"
+                                                 f"IMDb page: \n{get_movie_url(recommended_movie.title)}\n",
                                      color=0x00ff00)
 
         cover_url = IMDbMovieData.get_cover_image_url(recommended_movie.title)
