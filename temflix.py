@@ -32,12 +32,14 @@ async def unload(ctx, extension):
     bot.unload_extension(f"cogs.{extension}")
 
 
-# @bot.event
+@bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
 
     message.content = message.content.lower()
+
+    await bot.process_commands(message)
 
 
 # Load cogs
