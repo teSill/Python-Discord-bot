@@ -7,6 +7,14 @@
         }
     ],
     "Watchlist": [
-        {}
+        {
+            "Jason and the Argonauts": "https://www.imdb.com/title/tt0057197/",
+            "Spartacus": "https://www.imdb.com/title/tt0054331/",
+            "Ben-Hur": "https://www.imdb.com/title/tt0052618/",
+            "Zulu": "https://www.imdb.com/title/tt0058777/",
+            "Seven Samurai": "https://www.imdb.com/title/tt0047478/",
+            "The Alamo": "https://www.imdb.com/title/tt0053580/",
+            "Lawrence of Arabia": "https://www.imdb.com/title/tt0056172/"
+        }
     ]
 }

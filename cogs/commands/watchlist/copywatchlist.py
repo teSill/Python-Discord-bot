@@ -9,7 +9,7 @@ class CopyWatchlist(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["copy", "copywatchlist"], pass_context=True, description="Copies the watchlist of the "
-                                                                                        "user you enter "
+                                                                                        "given user"
                                                                                         "and makes it your own!")
     async def copy_watchlist(self, ctx, *, user_input):
         username = str(ctx.author)
