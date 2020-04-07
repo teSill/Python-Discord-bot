@@ -2,14 +2,25 @@ import discord
 from discord.ext import commands
 from tmdb_manager import TMDB
 from imdb_manager import IMDbMovieData
+from user_data import UserData
+import json
 
 
 class Recommend(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=["recommendminrate"], description="Recommends you a movie based on your watchlist.", pass_context=True)
+    @commands.command(description="Recommends you a movie based on your watchlist. You "
+                                  "can pass in a number to act as the minimum rating "
+                                  "for your query: eg. '!temflix recommend 7.5'",
+                      pass_context=True)
     async def recommend(self, ctx, *, user_input="6.5"):
+        user = UserData(str(ctx.author))
+        with open(user.get_full_path_for_edit(), "r+") as f:
+            data = json.load(f)
+            if len(list(data["Watchlist"][0].keys())) == 0:
+                await ctx.send("You'll need at least one title in your watchlist to get recommendations.")
+                return
 
         try:
             user_input = float(user_input)
@@ -37,8 +48,8 @@ class Recommend(commands.Cog):
         embedded_msg.set_image(url=cover_url)
 
         await ctx.send(embed=embedded_msg)
-        #except:
-            #print("There was an error retrieving a recommended movie from The Movie Database.")
+        # except:
+        # print("There was an error retrieving a recommended movie from The Movie Database.")
 
 
 def setup(client):
