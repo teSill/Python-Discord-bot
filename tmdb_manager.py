@@ -11,15 +11,18 @@ movie = Movie()
 tv = TV()
 
 
-def get_recommendation(title):
+def get_recommendation(title, minimum_rating):
     try:
         movie_id = movie.search(title)[0].id
     except IndexError:
         movie_id = tv.search(title)[0].id
 
-    minimum_rating = 6.5
+    pages = []
+    amount_of_pages = 10
+    for i in range(0, amount_of_pages):
+        rnd_num = random.randrange(1, 10)
+        pages.append(rnd_num)
 
-    pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     random.shuffle(pages)
 
     for i in pages:
@@ -28,11 +31,10 @@ def get_recommendation(title):
             random.shuffle(recs)
             for rec in recs:
                 if rec.vote_average >= minimum_rating:
-                    print(rec.title)
+                    print(f"Found {rec.title} on page {i}")
                     return rec
-        except KeyError as e:
-            print("Error retrieving recommendations: " + str(e))
-
+        except KeyError:
+            continue
 
 
 
@@ -43,19 +45,18 @@ class TMDB:
         return top_10
 
     @classmethod
-    def get_recommended_movie(cls, username):
+    def get_recommended_movie(cls, username, minimum_rating):
         user = UserData.create_user_instance_by_name(username)
 
         with open(user.get_full_path_for_edit(), "r+") as f:
             data = json.load(f)
-            watchlist = data["Watchlist"][0]
-            print(watchlist)
-            for i in range(0, len(watchlist)):
-                chosen_movie = random.choice(list(watchlist.keys()))
+            movies = list(data["Watchlist"][0].keys())
+            for i in range(0, len(movies)):
+                chosen_movie = random.choice(movies)
+                movies.remove(chosen_movie)
                 print("Trying to find recommended titles for title: " + str(chosen_movie))
-                recommended_movie = get_recommendation(chosen_movie)
+                recommended_movie = get_recommendation(chosen_movie, minimum_rating)
                 if recommended_movie is not None:
-                    print("Returning " + recommended_movie.title)
                     return recommended_movie
 
             return None

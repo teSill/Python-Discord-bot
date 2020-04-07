@@ -8,19 +8,28 @@ class Recommend(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(description="Recommends you a movie based on your watchlist.")
-    async def recommend(self, ctx):
-        #try:
-        recommended_movie = TMDB.get_recommended_movie(str(ctx.author))
-        if recommended_movie is None:
-            await ctx.send("Couldn't find anything other than shit movies, sorry.")
+    @commands.command(aliases=["recommendminrate"], description="Recommends you a movie based on your watchlist.", pass_context=True)
+    async def recommend(self, ctx, *, user_input="6.5"):
+
+        try:
+            user_input = float(user_input)
+        except ValueError:
             return
 
-        embedded_msg = discord.Embed(title="Recommended title",
-                                     description=f"Based on your watchlist, I'm recommending you...\n\n"
-                                                 f"Title: {recommended_movie.title}\n\n"
-                                                 f"Plot: {recommended_movie.overview}\n\n"
-                                                 f"Rating: {recommended_movie.vote_average}\n",
+        if user_input > 10:
+            await ctx.send("Enter a minimum rating between 1 and 10.")
+            return
+
+        await ctx.send(f"One moment - finding you a title with a minimum rating of {user_input}.")
+        recommended_movie = TMDB.get_recommended_movie(str(ctx.author), user_input)
+
+        if recommended_movie is None:
+            await ctx.send("Couldn't find titles up to your standards, sorry.")
+            return
+
+        embedded_msg = discord.Embed(title=f"Recommended title: {recommended_movie.title}",
+                                     description=f"\n\nPlot: \n\n{recommended_movie.overview}\n\n"
+                                                 f"TMDb rating: \n\n{recommended_movie.vote_average}\n",
                                      color=0x00ff00)
 
         cover_url = IMDbMovieData.get_cover_image_url(recommended_movie.title)
