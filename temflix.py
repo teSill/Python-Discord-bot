@@ -37,7 +37,7 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    message.content = message.content.lower()
+    #message.content = message.content.lower()
 
     await bot.process_commands(message)
 

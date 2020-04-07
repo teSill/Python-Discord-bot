@@ -2,22 +2,11 @@
     "UserData": [
         {
             "is_premium": false,
-            "experience": 0,
+            "experience": 5,
             "level": 0
         }
     ],
     "Watchlist": [
-        {
-            "No Time to Die": "https://www.imdb.com/title/tt2382320/",
-            "A Quiet Place Part II": "https://www.imdb.com/title/tt8332922/",
-            "Tenet": "https://www.imdb.com/title/tt6723592/",
-            "Get Out": "https://www.imdb.com/title/tt5052448/",
-            "Lassie": "https://www.imdb.com/title/tt0046617/",
-            "The Dark Knight Rises": "https://www.imdb.com/title/tt1345836/",
-            "Joker": "https://www.imdb.com/title/tt7286456/",
-            "The Irishman": "https://www.imdb.com/title/tt1302006/",
-            "Casino": "https://www.imdb.com/title/tt0112641/",
-            "Glengarry Glen Ross": "https://www.imdb.com/title/tt0104348/"
-        }
+        {}
     ]
 }

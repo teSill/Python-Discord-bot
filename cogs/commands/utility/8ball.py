@@ -21,7 +21,6 @@ class EightBall(commands.Cog):
                      "Yes.",
                      "Signs point to yes.",
                      "Reply hazy, try again.",
-                     "Ask again later.",
                      "Definitely, maybe.",
                      "Don't count on it.",
                      "My reply is no.",
