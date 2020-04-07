@@ -12,6 +12,9 @@ class Recommend(commands.Cog):
     async def recommend(self, ctx):
         #try:
         recommended_movie = TMDB.get_recommended_movie(str(ctx.author))
+        if recommended_movie is None:
+            await ctx.send("Couldn't find anything other than shit movies, sorry.")
+            return
 
         embedded_msg = discord.Embed(title="Recommended movie",
                                      description=f"Based on your watchlist, I'm recommending you...\n\n"

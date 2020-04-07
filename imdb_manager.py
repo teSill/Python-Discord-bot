@@ -115,13 +115,11 @@ class IMDbActorData:
         person = instance.get_person(self.id)
         if person is None:
             return "Not found"
-        # if person["bio"] is not str:
-        # return "No biography found"
 
-        splitted_bio = str(person["bio"]).split(".")
-        splitted_bio = [item + "." for item in splitted_bio]
+        split_bio = str(person["bio"]).split(".")
+        split_bio = [item + "." for item in split_bio]
 
-        mini_bio = splitted_bio[:5]
+        mini_bio = split_bio[:5]
         mini_bio[2] = mini_bio[2] + "\n\n"
         mini_bio_str = "".join(mini_bio)
         return mini_bio_str[2:]

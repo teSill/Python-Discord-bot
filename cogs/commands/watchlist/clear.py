@@ -17,8 +17,8 @@ class Clear(commands.Cog):
             print(user.get_full_path_for_edit())
             data = json.load(f)
             data["Watchlist"][0].clear()
-            await user.update_watchlist(data)
 
+            await user.update_watchlist(data)
             await ctx.message.add_reaction("👍")
 
 

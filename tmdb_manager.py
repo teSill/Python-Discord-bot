@@ -26,10 +26,15 @@ class TMDB:
             chosen_movie = random.choice(list(watchlist.keys()))
 
         print("getting recommendation based on title: " + chosen_movie)
-        movie_id = movie.search(chosen_movie)[0].id
 
-        recommendations = movie.recommendations(movie_id)
-        recommended_movie = random.choice(recommendations)
-        return recommended_movie
+        movie_id = movie.search(chosen_movie)[0].id
+        minimum_rating = 6.5
+
+        for i in range(1, 6):
+            for rec in movie.recommendations(movie_id, i):
+                if rec.vote_average >= minimum_rating:
+                    return rec
+
+        return None
 
 
