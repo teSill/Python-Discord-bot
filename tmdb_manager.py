@@ -1,4 +1,4 @@
-from tmdbv3api import TMDb, Movie
+from tmdbv3api import TMDb, Movie, TV
 import os
 import random
 import json
@@ -6,7 +6,34 @@ from user_data import UserData
 
 tmdb = TMDb()
 tmdb.api_key = os.getenv("TMDB_API_KEY")
+
 movie = Movie()
+tv = TV()
+
+
+def get_recommendation(title):
+    try:
+        movie_id = movie.search(title)[0].id
+    except IndexError:
+        movie_id = tv.search(title)[0].id
+
+    minimum_rating = 6.5
+
+    pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    random.shuffle(pages)
+
+    for i in pages:
+        try:
+            recs = movie.recommendations(movie_id, i)
+            random.shuffle(recs)
+            for rec in recs:
+                if rec.vote_average >= minimum_rating:
+                    print(rec.title)
+                    return rec
+        except KeyError as e:
+            print("Error retrieving recommendations: " + str(e))
+
+
 
 
 class TMDB:
@@ -23,18 +50,14 @@ class TMDB:
             data = json.load(f)
             watchlist = data["Watchlist"][0]
             print(watchlist)
-            chosen_movie = random.choice(list(watchlist.keys()))
+            for i in range(0, len(watchlist)):
+                chosen_movie = random.choice(list(watchlist.keys()))
+                print("Trying to find recommended titles for title: " + str(chosen_movie))
+                recommended_movie = get_recommendation(chosen_movie)
+                if recommended_movie is not None:
+                    print("Returning " + recommended_movie.title)
+                    return recommended_movie
 
-        print("getting recommendation based on title: " + chosen_movie)
-
-        movie_id = movie.search(chosen_movie)[0].id
-        minimum_rating = 6.5
-
-        for i in range(1, 6):
-            for rec in movie.recommendations(movie_id, i):
-                if rec.vote_average >= minimum_rating:
-                    return rec
-
-        return None
+            return None
 
 

@@ -16,7 +16,7 @@ class Recommend(commands.Cog):
             await ctx.send("Couldn't find anything other than shit movies, sorry.")
             return
 
-        embedded_msg = discord.Embed(title="Recommended movie",
+        embedded_msg = discord.Embed(title="Recommended title",
                                      description=f"Based on your watchlist, I'm recommending you...\n\n"
                                                  f"Title: {recommended_movie.title}\n\n"
                                                  f"Plot: {recommended_movie.overview}\n\n"
