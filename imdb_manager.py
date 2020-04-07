@@ -99,6 +99,7 @@ class IMDbActorData:
         self.thumbnail = self.get_thumbnail()
         self.cover = self.get_full_size_image()
         # self.awards = self.get_awards()
+        self.url = self.get_url()
 
     def get_filmography(self):
         person = instance.get_person(self.id)
@@ -134,3 +135,6 @@ class IMDbActorData:
 
     def get_awards(self):
         pass
+
+    def get_url(self):
+        return instance.get_imdbURL(self.actor_obj)

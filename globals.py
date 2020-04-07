@@ -11,6 +11,9 @@ class GlobalDiscordMethods:
 
         embedded_msg = discord.Embed(title=str(actor.actor_obj), description="%s" % str(actor.biography),
                                      color=0x00ff00)
+
+        embedded_msg.add_field(name="IMDb page", value=actor.url, inline=False)
+
         embedded_msg.set_thumbnail(url=actor.thumbnail)
         embedded_msg.set_image(url=actor.cover)
 
