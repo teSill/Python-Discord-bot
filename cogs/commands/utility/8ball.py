@@ -31,7 +31,7 @@ class EightBall(commands.Cog):
                      "How could you even suggest otherwise?",
                      "I'm the most certain I've ever been that the answer is no.",
                      ]
-        await ctx.send(random.choice(responses), tts=True)
+        await ctx.send(random.choice(responses))
 
 
 def setup(client):

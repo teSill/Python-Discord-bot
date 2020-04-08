@@ -2,19 +2,21 @@ from pathlib import PurePath
 import os.path
 import glob
 from discord.ext import commands
-from user_data import UserData
+from trivia_manager import TriviaManager
 
 TOKEN = os.environ.get('DISCORD_TOKEN')
 bot_name = "Temflix"
 custom_commands = ["find", "commands", "popular", "findactor", "findactress", "findmovie"]
 
-bot = commands.Bot(command_prefix='!temflix ')
+bot = commands.Bot(command_prefix='!temflix ', )
 bot.remove_command("help")
 
 
 @bot.event
 async def on_ready():
     print(f"{bot_name} has come online!")
+    TriviaManager.clear_trivia_folder()
+    TriviaManager.create_trivia_folder()
 
 
 #@bot.event

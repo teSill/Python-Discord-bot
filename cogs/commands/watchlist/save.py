@@ -1,7 +1,7 @@
 from discord.ext import commands
 from globals import GlobalDiscordMethods
 import json
-from user_data import UserData, user_dir
+from user_data import UserData
 
 
 async def add_to_watchlist(ctx, movie_obj):
