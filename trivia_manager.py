@@ -4,8 +4,10 @@ import json
 import os
 import asyncio
 import shutil
+import random
 
 trivia_dir = "./trivia_games"
+trivia_questions_dir = "./trivia_questions/questions.json"
 max_game_runtime = 120
 
 
@@ -17,6 +19,13 @@ class TriviaManager:
             if channel_id in filename:
                 return True
         return False
+
+    @classmethod
+    def get_random_question(cls):
+        with open(trivia_questions_dir, "r+") as f:
+            data = json.load(f)
+            random_question = random.choice(list(data["best_picture_questions"]))
+            return random_question
 
     @classmethod
     def get_correct_answer(cls, channel_id):
@@ -36,9 +45,9 @@ class TriviaManager:
         with open(os.path.join(trivia_dir, f"{channel_id}.json"), "w") as f:
             json.dump(correct_answer, f, ensure_ascii=False, indent=4)
 
-        await asyncio.sleep(max_game_runtime)
-        print(f"Waited {max_game_runtime}s, let's delete the trivia game.")
-        TriviaManager.clear_trivia_game(channel_id)
+        #await asyncio.sleep(max_game_runtime)
+        #print(f"Waited {max_game_runtime}s, let's delete the trivia game.")
+        #TriviaManager.clear_trivia_game(channel_id)
 
     @classmethod
     def clear_trivia_game(cls, channel_id):

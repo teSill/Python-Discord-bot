@@ -8,7 +8,9 @@ TOKEN = os.environ.get('DISCORD_TOKEN')
 bot_name = "Temflix"
 custom_commands = ["find", "commands", "popular", "findactor", "findactress", "findmovie"]
 
-bot = commands.Bot(command_prefix='!temflix ', )
+prefixes = ["!temflix ", "!t ", "!tem "]
+
+bot = commands.Bot(command_prefix=prefixes)
 bot.remove_command("help")
 
 

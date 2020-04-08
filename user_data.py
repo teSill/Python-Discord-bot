@@ -1,8 +1,6 @@
 import glob
 import os
 import json
-import operator
-import functools
 
 user_dir = "./users"
 
@@ -23,13 +21,6 @@ def user_save_exists(username):
         if username in filename:
             return True
     return False
-
-
-def create_user_if_not_existing(username):
-    for filename in glob.iglob(f"{user_dir}/*", recursive=True):
-        if username in filename:
-            return
-    UserData(username)
 
 
 class UserData:

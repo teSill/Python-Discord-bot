@@ -1,18 +1,9 @@
 {
-    "UserData": [
-        {
-            "is_premium": false,
-            "experience": 0,
-            "level": 0
-        }
-    ],
-    "Watchlist": [
-        {
-            "No Time to Die": "https://www.imdb.com/title/tt2382320/",
-            "A Quiet Place Part II": "https://www.imdb.com/title/tt8332922/",
-            "Tenet": "https://www.imdb.com/title/tt6723592/",
-            "Parasite": "https://www.imdb.com/title/tt6751668/",
-            "Get Out": "https://www.imdb.com/title/tt5052448/"
-        }
-    ]
+  "best_picture_questions": [
+    {
+      "question": "Which movie won best picture in 1987?",
+      "correct_answer": "The Last Emperor",
+      "options": [ "The Last Emperor", "Terminator 2", "Toy Story", "A Beautiful Mind" ]
+    }
+  ]
 }
