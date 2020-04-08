@@ -37,7 +37,7 @@ class TriviaManager:
             json.dump(correct_answer, f, ensure_ascii=False, indent=4)
 
         await asyncio.sleep(max_game_runtime)
-        print("Waited 10s, let's delete the trivia game.")
+        print(f"Waited {max_game_runtime}s, let's delete the trivia game.")
         TriviaManager.clear_trivia_game(channel_id)
 
     @classmethod

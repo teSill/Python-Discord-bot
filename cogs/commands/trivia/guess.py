@@ -1,5 +1,8 @@
 from discord.ext import commands
 from trivia_manager import TriviaManager
+from user_data import UserData
+
+right_answer_exp = 10
 
 
 class Guess(commands.Cog):
@@ -14,8 +17,11 @@ class Guess(commands.Cog):
             return
 
         if correct_answer.lower() == user_input.lower():
-            await ctx.send("That's correct!!!")
             TriviaManager.clear_trivia_game(channel_id)
+            user = UserData(str(ctx.author))
+            user.add_experience(right_answer_exp)
+
+            await ctx.send(f"That's correct! You received {right_answer_exp} exp -  you now have {user.get_experience()}.")
             return
 
         print(f"User guessed {user_input.lower()} but the right answer is {correct_answer.lower()}")

@@ -76,6 +76,14 @@ class UserData:
     def get_full_path_for_edit(self):
         return f"{user_dir}/{self.username}.json"
 
+    def add_experience(self, exp_amount):
+        with open(self.save_path, "r+") as f:
+            data = json.load(f)
+            data["UserData"][0]["experience"] = self.get_experience() + exp_amount
+
+        with open(self.save_path, "r+") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
     @classmethod
     def create_user_instance_by_name(cls, username):
         return UserData(username)
