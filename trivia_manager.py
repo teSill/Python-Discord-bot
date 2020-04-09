@@ -2,13 +2,15 @@ import errno
 import glob
 import json
 import os
-import asyncio
 import shutil
 import random
+from imdb import IMDb
 
 trivia_dir = "./trivia_games"
 trivia_questions_dir = "./trivia_questions/questions.json"
 max_game_runtime = 120
+
+ia = IMDb()
 
 
 class TriviaManager:
@@ -45,9 +47,9 @@ class TriviaManager:
         with open(os.path.join(trivia_dir, f"{channel_id}.json"), "w") as f:
             json.dump(correct_answer, f, ensure_ascii=False, indent=4)
 
-        #await asyncio.sleep(max_game_runtime)
-        #print(f"Waited {max_game_runtime}s, let's delete the trivia game.")
-        #TriviaManager.clear_trivia_game(channel_id)
+        # await asyncio.sleep(max_game_runtime)
+        # print(f"Waited {max_game_runtime}s, let's delete the trivia game.")
+        # TriviaManager.clear_trivia_game(channel_id)
 
     @classmethod
     def clear_trivia_game(cls, channel_id):

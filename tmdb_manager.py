@@ -10,8 +10,16 @@ tmdb.api_key = os.getenv("TMDB_API_KEY")
 movie = Movie()
 tv = TV()
 
+def get_release_date(title):
+    try:
+        movie_id = movie.search(title)[0].id
+    except IndexError:
+        movie_id = tv.search(title)[0].id
 
-def get_recommendation(title, minimum_rating):
+    print(movie.air_date)
+
+
+def get_recommendations(title, minimum_rating, amount=1):
     try:
         movie_id = movie.search(title)[0].id
     except IndexError:
@@ -25,6 +33,8 @@ def get_recommendation(title, minimum_rating):
 
     random.shuffle(pages)
 
+    recommendations = []
+
     for i in pages:
         try:
             recs = movie.recommendations(movie_id, i)
@@ -32,10 +42,14 @@ def get_recommendation(title, minimum_rating):
             for rec in recs:
                 if rec.vote_average >= minimum_rating:
                     print(f"Found {rec.title} on page {i}")
-                    return rec
+                    if amount == 1:
+                        return rec
+                    else:
+                        recommendations.append(rec)
+                        if len(recommendations) == amount:
+                            return recommendations
         except KeyError:
             continue
-
 
 
 class TMDB:
@@ -55,10 +69,12 @@ class TMDB:
                 chosen_movie = random.choice(movies)
                 movies.remove(chosen_movie)
                 print("Trying to find recommended titles for title: " + str(chosen_movie))
-                recommended_movie = get_recommendation(chosen_movie, minimum_rating)
+                recommended_movie = get_recommendations(chosen_movie, minimum_rating)
                 if recommended_movie is not None:
                     return recommended_movie
 
             return None
 
-
+    @classmethod  # In heavy use in trivia
+    def get_3_recommended_movies(cls, title):
+        return get_recommendations(title, 6.5, 3)

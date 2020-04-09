@@ -16,17 +16,41 @@ def get_movie_url(title):
     return instance.get_imdbURL(movie)
 
 
+def get_director(movie):
+    director_data = movie.get("director")
+    director = director_data[0] if director_data is not None else "Not found"
+    return str(director)
+
+
+def get_stars(movie, amount):
+    cast = movie.get('cast')
+
+    if cast is None:
+        return "Not found"
+
+    top_actors = amount
+    stars = []
+    for actor in cast[:top_actors]:
+        stars.append(actor['name'])
+
+    return ", ".join(stars)
+
+
+def get_year(movie):
+    return movie.get("year")
+
+
 class IMDbMovieData:
     def __init__(self, title):
         self.movie = search_movie(title)
         self.imdb_movie = get_movie(self.movie.getID())
         self.title = self.get_title()
-        self.director = self.get_director()
-        self.stars = self.get_stars()
+        self.director = get_director(self.imdb_movie)
+        self.stars = get_stars(self.imdb_movie, 5)
         self.plot = self.get_plot()
         self.rating = self.get_rating()
         self.genre = self.get_genres()
-        self.year = self.get_year()
+        self.year = get_year(self.imdb_movie)
         self.runtime = self.get_runtime()
         self.url = get_movie_url(title)
         self.image = self.get_gallery()
@@ -38,19 +62,6 @@ class IMDbMovieData:
         director_data = self.imdb_movie.get("director")
         director = director_data[0] if director_data is not None else "Not found"
         return str(director)
-
-    def get_stars(self):
-        cast = self.imdb_movie.get('cast')
-
-        if cast is None:
-            return "Not found"
-
-        top_actors = 5
-        stars = []
-        for actor in cast[:top_actors]:
-            stars.append(actor['name'])
-
-        return ", ".join(stars)
 
     def get_plot(self):
         plot_data = self.imdb_movie.get("plot")
@@ -64,9 +75,6 @@ class IMDbMovieData:
 
     def get_genres(self):
         return ", ".join(self.imdb_movie.get("genre"))
-
-    def get_year(self):
-        return self.imdb_movie.get("year")
 
     def get_runtime(self):
         runtime_data = self.imdb_movie.get("runtime")

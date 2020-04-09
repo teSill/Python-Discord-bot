@@ -1,7 +1,7 @@
 {
     "UserData": [
         {
-            "is_premium": false,
+            "is_premium": true,
             "experience": 0,
             "level": 0
         }
@@ -14,7 +14,11 @@
             "Zulu": "https://www.imdb.com/title/tt0058777/",
             "Seven Samurai": "https://www.imdb.com/title/tt0047478/",
             "The Alamo": "https://www.imdb.com/title/tt0053580/",
-            "Lawrence of Arabia": "https://www.imdb.com/title/tt0056172/"
+            "Lawrence of Arabia": "https://www.imdb.com/title/tt0056172/",
+            "Ran": "https://www.imdb.com/title/tt0089881/",
+            "White Heat": "https://www.imdb.com/title/tt0042041/",
+            "The Dirty Dozen": "https://www.imdb.com/title/tt0061578/",
+            "The Rebel": "https://www.imdb.com/title/tt0052505/"
         }
     ]
 }
