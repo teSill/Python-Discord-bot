@@ -9,7 +9,6 @@ class Trivia(commands.Cog):
     @commands.command(aliases=["play"], description="Movie trivia.")
     async def trivia(self, ctx):
         print("Question raised in channel ID:" + str(ctx.channel.id))
-        await ctx.send("Just a moment!")
         await trivia_questions.ask_random_question(ctx)
 
 

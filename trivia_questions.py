@@ -3,21 +3,22 @@ import random
 import discord
 import movie_data
 from trivia_manager import TriviaManager
-
+from tmdb_manager import TMDB
 
 class TriviaQuestions:
     @classmethod
-    async def ask_for_release_year(cls, ctx, title):
-        imdb_title = imdb_manager.search_movie(title)
-        imdb_movie = imdb_manager.get_movie(imdb_title.getID())
-        release_year = imdb_manager.get_year(imdb_movie)
+    async def ask_for_release_year(cls, ctx, tmdb_title):
+        release_year = str(tmdb_title.release_date).split("-")[0]
+        release_year = int(release_year)
+        print(str(release_year))
 
         decoy_years = [release_year]
         for i in range(0, 3):
             rnd_num = random.randrange(release_year - 15, release_year + 15)
             decoy_years.append(rnd_num)
+        random.shuffle(decoy_years)
 
-        embedded_msg = discord.Embed(title=f"Which year was '{title}' released in?", description="",
+        embedded_msg = discord.Embed(title=f"Which year was '{tmdb_title.title}' released in?", description="",
                                      color=0x00ff00)
 
         decoy_years = [release_year]
@@ -51,6 +52,6 @@ class TriviaQuestions:
 
 
 async def ask_random_question(ctx):
-    title = random.choice(movie_data.generic_movies)
+    title = TMDB.get_recommended_movie_by_title(random.choice(movie_data.generic_movies), 6.5)
     # decoy_movies = TMDB.get_3_recommended_movies(title)
     await TriviaQuestions.ask_for_release_year(ctx, title)

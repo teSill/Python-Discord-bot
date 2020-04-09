@@ -2,7 +2,7 @@
     "UserData": [
         {
             "is_premium": true,
-            "experience": 0,
+            "experience": 10,
             "level": 0
         }
     ],

@@ -59,7 +59,7 @@ class TMDB:
         return top_10
 
     @classmethod
-    def get_recommended_movie(cls, username, minimum_rating):
+    def get_recommended_movie(cls, username, minimum_rating=6.5):
         user = UserData.create_user_instance_by_name(username)
 
         with open(user.get_full_path_for_edit(), "r+") as f:
@@ -74,6 +74,10 @@ class TMDB:
                     return recommended_movie
 
             return None
+
+    @classmethod
+    def get_recommended_movie_by_title(cls, title, minimum_rating=6.5):
+        return get_recommendations(title, minimum_rating)
 
     @classmethod  # In heavy use in trivia
     def get_3_recommended_movies(cls, title):
