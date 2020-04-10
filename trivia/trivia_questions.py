@@ -2,8 +2,10 @@ import random
 import discord
 from trivia.trivia_manager import TriviaManager
 from user_data import UserData
-from trivia.questions.ask_for_release_year import ask_for_release_year
-from trivia.questions.ask_which_movie_person_directed import ask_which_movie_person_directed
+
+from trivia.questions.what_release_year import ask_for_release_year
+from trivia.questions.directed_which_movie import ask_which_movie_person_directed
+from trivia.questions.who_directed_movie import ask_who_directed_movie
 
 # ask_for_director = 2
 # ask_which_movie_these_actors_starred_in = 3
@@ -11,7 +13,8 @@ from trivia.questions.ask_which_movie_person_directed import ask_which_movie_per
 
 
 async def ask_random_question(ctx):
-    questions = [ask_which_movie_person_directed(ctx), ask_for_release_year(ctx)]
+    questions = [ask_which_movie_person_directed(ctx), ask_for_release_year(ctx),
+                 ask_who_directed_movie(ctx)]
     await random.choice(questions)
 
 

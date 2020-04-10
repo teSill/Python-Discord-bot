@@ -10,8 +10,11 @@ async def ask_for_release_year(ctx):
     release_year = None
     while release_year is None:
         movie = tmdb_manager.TMDB.get_recommended_movie_by_title(random.choice(movie_data.generic_movies), 6.5)
+        try:
+            release_year = int(str(movie.release_date).split("-")[0])
+        except AttributeError:
+            continue
         globals.latest_movie_query = movie
-        release_year = int(str(movie.release_date).split("-")[0])
 
     decoy_years = [release_year]
     for i in range(0, 3):

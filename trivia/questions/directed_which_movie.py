@@ -9,9 +9,12 @@ async def ask_which_movie_person_directed(ctx):
     movie_id = None
     while movie_id is None:
         movie = tmdb_manager.TMDB.get_recommended_movie_by_title(random.choice(movie_data.generic_movies), 6.5)
-        movie_id = movie.id
+        try:
+            movie_id = movie.id
+        except AttributeError:
+            continue
 
-    director = tmdb_manager.get_director(movie.id)
+    director = tmdb_manager.get_director(movie_id)
 
     all_options = tmdb_manager.TMDB.get_3_recommended_movies(movie.title)
     all_options.append(movie)
