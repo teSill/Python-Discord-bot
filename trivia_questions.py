@@ -30,7 +30,7 @@ class TriviaQuestions:
         decoy_years = [release_year]
         while len(decoy_years) < 4:
             rnd_num = random.randrange(release_year - 15, release_year + 15) if release_year <= 2005 \
-                                        else random.randrange(release_year - 20, release_year)
+                else random.randrange(release_year - 20, release_year)
             if rnd_num in decoy_years:
                 continue
             decoy_years.append(rnd_num)
@@ -86,10 +86,9 @@ class TriviaQuestions:
         await display_reactions(sent_message)
 
 
-
-#ask_for_director = 2
-#ask_which_movie_these_actors_starred_in = 3
-#ask_for_movie_show_plot = 4
+# ask_for_director = 2
+# ask_which_movie_these_actors_starred_in = 3
+# ask_for_movie_show_plot = 4
 
 
 async def display_reactions(msg):
@@ -101,7 +100,8 @@ async def display_reactions(msg):
 
 async def ask_random_question(ctx):
     # decoy_movies = TMDB.get_3_recommended_movies(title)
-    await TriviaQuestions.ask_which_movie_person_directed(ctx)
+    questions = [TriviaQuestions.ask_which_movie_person_directed(ctx), TriviaQuestions.ask_for_release_year(ctx)]
+    await random.choice(questions)
 
 
 async def verify_guess(reaction, user):
