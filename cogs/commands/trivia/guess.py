@@ -1,5 +1,5 @@
 from discord.ext import commands
-from trivia_manager import TriviaManager
+from trivia.trivia_manager import TriviaManager
 from user_data import UserData
 
 right_answer_exp = 10

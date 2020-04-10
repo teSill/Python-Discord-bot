@@ -7,8 +7,7 @@ import shutil
 
 from imdb import IMDb
 
-trivia_dir = "./trivia_games"
-trivia_questions_dir = "./trivia_questions/questions.json"
+trivia_dir = "trivia/trivia_active_games"
 max_game_runtime = 120
 
 ia = IMDb()
@@ -24,13 +23,6 @@ class TriviaManager:
         return False
 
     @classmethod
-    def get_random_question(cls):
-        with open(trivia_questions_dir, "r+") as f:
-            data = json.load(f)
-            random_question = random.choice(list(data["best_picture_questions"]))
-            return random_question
-
-    @classmethod
     def get_correct_answer(cls, channel_id):
         if not TriviaManager.channel_has_running_game(channel_id):
             print("Channel doesn't have a running trivia game.")
@@ -38,7 +30,6 @@ class TriviaManager:
 
         with open(os.path.join(trivia_dir, f"{channel_id}.json"), "r+") as f:
             data = json.load(f)
-            #data["UserData"][0].get("experience")
             return data.get("correct_answer")
 
     @classmethod
@@ -82,4 +73,11 @@ class TriviaManager:
         try:
             shutil.rmtree(trivia_dir, ignore_errors=True)
         except FileNotFoundError:
-            print("'trivia_games' folder doesn't exist.")
+            print(f"{trivia_dir} doesn't exist.")
+
+    @classmethod
+    async def display_reactions(cls, msg):
+        await msg.add_reaction("🇦")
+        await msg.add_reaction("🇧")
+        await msg.add_reaction("🇨")
+        await msg.add_reaction("🇩")

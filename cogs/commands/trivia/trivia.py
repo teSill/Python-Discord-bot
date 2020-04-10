@@ -1,6 +1,6 @@
 from discord.ext import commands
-import trivia_questions
-from trivia_manager import TriviaManager
+from trivia import trivia_questions
+from trivia.trivia_manager import TriviaManager
 
 
 class Trivia(commands.Cog):

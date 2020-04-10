@@ -1,10 +1,9 @@
 from pathlib import PurePath
 import os.path
 import glob
-import trivia_questions
-import discord
+from trivia import trivia_questions
 from discord.ext import commands
-from trivia_manager import TriviaManager
+from trivia.trivia_manager import TriviaManager
 
 TOKEN = os.environ.get('DISCORD_TOKEN')
 bot_name = "Temflix"
