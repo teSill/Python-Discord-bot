@@ -2,8 +2,9 @@ import errno
 import glob
 import json
 import os
-import shutil
 import random
+import shutil
+
 from imdb import IMDb
 
 trivia_dir = "./trivia_games"
@@ -16,7 +17,7 @@ ia = IMDb()
 class TriviaManager:
 
     @classmethod
-    def trivia_game_exists(cls, channel_id):
+    def channel_has_running_game(cls, channel_id):
         for filename in glob.iglob(f"{trivia_dir}/*", recursive=True):
             if channel_id in filename:
                 return True
@@ -31,7 +32,7 @@ class TriviaManager:
 
     @classmethod
     def get_correct_answer(cls, channel_id):
-        if not TriviaManager.trivia_game_exists(channel_id):
+        if not TriviaManager.channel_has_running_game(channel_id):
             print("Channel doesn't have a running trivia game.")
             return None
 
@@ -41,7 +42,7 @@ class TriviaManager:
 
     @classmethod
     async def create_trivia_game(cls, channel_id, correct_answer):
-        if TriviaManager.trivia_game_exists(channel_id):
+        if TriviaManager.channel_has_running_game(channel_id):
             return
 
         with open(os.path.join(trivia_dir, f"{channel_id}.json"), "w") as f:
@@ -58,26 +59,8 @@ class TriviaManager:
             os.remove(path)
 
     @classmethod
-    def create_trivia_folder(cls):
-        try:
-            os.mkdir(trivia_dir)
-        except FileExistsError:
-            print("Trivia games folder already exists...?")
-
-    @classmethod
     def clear_trivia_folder(cls):
         try:
-            shutil.rmtree(trivia_dir, ignore_errors=False, onerror=TriviaManager.on_error)
+            shutil.rmtree(trivia_dir, ignore_errors=True)
         except FileNotFoundError:
-            print("Folder doesn't exist.")
-
-    @classmethod
-    def on_error(cls, path, exc):
-        excvalue = exc[1]
-        if cls in (os.rmdir, os.remove) and excvalue.errno == errno.EACCES:
-            # change the file to be readable,writable,executable: 0777
-            os.chmod(path, os.stat.S_IRWXU | os.stat.S_IRWXG | os.stat.S_IRWXO)
-            # retry
-            cls(path)
-        else:
-            print("hä")
+            print("'trivia_games' folder doesn't exist.")

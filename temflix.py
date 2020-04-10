@@ -1,6 +1,8 @@
 from pathlib import PurePath
 import os.path
 import glob
+
+import discord
 from discord.ext import commands
 from trivia_manager import TriviaManager
 
@@ -18,7 +20,6 @@ bot.remove_command("help")
 async def on_ready():
     print(f"{bot_name} has come online!")
     TriviaManager.clear_trivia_folder()
-    TriviaManager.create_trivia_folder()
 
 
 #@bot.event
@@ -44,6 +45,38 @@ async def on_message(message):
     #message.content = message.content.lower()
 
     await bot.process_commands(message)
+
+
+@bot.event
+async def on_reaction_add(reaction, user):
+    channel = reaction.message.channel
+    if user == bot.user:
+        return
+    if TriviaManager.channel_has_running_game(str(channel.id)):
+        correct_option = TriviaManager.get_correct_answer(str(channel.id))
+        emojis = ["🇦", "🇧", "🇨", "🇩"]
+
+        if reaction.emoji == emojis[0] and correct_option == "a":
+            msg = "winner winner chicken dinner"
+        elif reaction.emoji == emojis[1] and correct_option == "b":
+            msg = "winner winner chicken dinner"
+        elif reaction.emoji == emojis[2] and correct_option == "c":
+            msg = "winner winner chicken dinner"
+        elif reaction.emoji == emojis[3] and correct_option == "d":
+            msg = "winner winner chicken dinner"
+        else:
+            msg = "No!"
+
+        embedded_msg = discord.Embed(title=msg, description="",
+                                     color=0x00ff00)
+
+        await channel.send(embed=embedded_msg)
+
+@bot.event
+async def on_reaction_remove(reaction, user):
+    pass
+    #channel = reaction.message.channel.id
+    #if TriviaManager.channel_has_running_game(str(channel)):
 
 
 # Load cogs

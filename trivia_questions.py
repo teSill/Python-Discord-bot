@@ -5,6 +5,7 @@ import movie_data
 from trivia_manager import TriviaManager
 from tmdb_manager import TMDB
 
+
 class TriviaQuestions:
     @classmethod
     async def ask_for_release_year(cls, ctx):
@@ -12,7 +13,6 @@ class TriviaQuestions:
         while release_year is None:
             movie = TMDB.get_recommended_movie_by_title(random.choice(movie_data.generic_movies), 6.5)
             release_year = int(str(movie.release_date).split("-")[0])
-            print("gonna need to try again...");
 
         decoy_years = [release_year]
         for i in range(0, 3):
@@ -46,11 +46,19 @@ class TriviaQuestions:
             embedded_msg.add_field(name='\u200b', value=f"{key}: {value}", inline=False)
 
         await TriviaManager.create_trivia_game(str(ctx.channel.id), correct_option)
-        await ctx.send(embed=embedded_msg)
+        sent_message = await ctx.send(embed=embedded_msg)
+        await display_reactions(sent_message)
 
 #ask_for_director = 2
 #ask_which_movie_these_actors_starred_in = 3
 #ask_for_movie_show_plot = 4
+
+
+async def display_reactions(msg):
+    await msg.add_reaction("🇦")
+    await msg.add_reaction("🇧")
+    await msg.add_reaction("🇨")
+    await msg.add_reaction("🇩")
 
 
 async def ask_random_question(ctx):
