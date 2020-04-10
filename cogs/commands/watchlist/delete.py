@@ -17,10 +17,7 @@ class Delete(commands.Cog):
         with open(user.get_full_path_for_edit(), "r+") as f:
             print(user.get_full_path_for_edit())
             data = json.load(f)
-            print(str(user_input))
-            print(data["Watchlist"][0])
             data["Watchlist"][0].pop(user_input, None)
-            print(data["Watchlist"][0])
             await user.update_watchlist(data)
 
             await ctx.message.add_reaction("👍")

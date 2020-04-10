@@ -2,7 +2,7 @@
     "UserData": [
         {
             "is_premium": true,
-            "experience": 10,
+            "experience": 70,
             "level": 0
         }
     ],
@@ -18,7 +18,8 @@
             "Ran": "https://www.imdb.com/title/tt0089881/",
             "White Heat": "https://www.imdb.com/title/tt0042041/",
             "The Dirty Dozen": "https://www.imdb.com/title/tt0061578/",
-            "The Rebel": "https://www.imdb.com/title/tt0052505/"
+            "The Rebel": "https://www.imdb.com/title/tt0052505/",
+            "Training Day": "https://www.imdb.com/title/tt0139654/"
         }
     ]
 }

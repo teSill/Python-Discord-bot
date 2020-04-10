@@ -1,9 +1,10 @@
 import discord
 from imdb_manager import IMDbMovieData, IMDbActorData
 
+latest_movie_query = None
+
 
 class GlobalDiscordMethods:
-    latest_movie_query = None
 
     @classmethod
     async def display_actor_in_chat(cls, name, ctx):

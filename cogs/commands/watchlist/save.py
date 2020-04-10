@@ -1,7 +1,8 @@
 from discord.ext import commands
-from globals import GlobalDiscordMethods
+import globals
 import json
 from user_data import UserData
+import imdb_manager
 
 
 async def add_to_watchlist(ctx, movie_obj):
@@ -13,17 +14,25 @@ async def add_to_watchlist(ctx, movie_obj):
         watchlist = data["Watchlist"][0]
 
         if any(movie_obj.title in title for title in watchlist):
+            await ctx.message.add_reaction("👎")
             return
 
         if len(watchlist) == user.max_watchlist_size:
             msg = "Your watchlist is full! Try deleting some entries with '!temflix delete title'." if user.is_premium else \
-                "Your watchlist is full! Premium members can hold 5 times as many titles."
+                "Your watchlist is full! If you'd like to support the developer, please consider purchasing Premium " \
+                "and you'll be able to keep over 3 times as many titles in your watchlist too!"
             await ctx.send(msg)
+            await ctx.message.add_reaction("👎")
             return
 
-        watchlist.update({
-            movie_obj.title: movie_obj.url
-        })
+        try:
+            watchlist.update({
+                movie_obj.title: movie_obj.url
+            })
+        except AttributeError:
+            watchlist.update({
+                movie_obj.title: imdb_manager.get_movie_url(movie_obj.title)
+            })
 
         await user.update_watchlist(data)
         await ctx.message.add_reaction("👍")
@@ -35,11 +44,11 @@ class Save(commands.Cog):
 
     @commands.command(description="Saves the last queried movie to your watchlist.")
     async def save(self, ctx):
-        if GlobalDiscordMethods.latest_movie_query is None:
+        if globals.latest_movie_query is None:
             await ctx.send("Search for a movie first! This command saves the last queried movie.")
             return
 
-        await add_to_watchlist(ctx, GlobalDiscordMethods.latest_movie_query)
+        await add_to_watchlist(ctx, globals.latest_movie_query)
 
 
 def setup(client):

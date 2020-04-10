@@ -41,7 +41,6 @@ def get_recommendations(title, minimum_rating, amount=1):
             random.shuffle(recs)
             for rec in recs:
                 if rec.vote_average >= minimum_rating:
-                    print(f"Found {rec.title} on page {i}")
                     if amount == 1:
                         return rec
                     else:

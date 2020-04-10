@@ -2,7 +2,7 @@
     "UserData": [
         {
             "is_premium": false,
-            "experience": 220,
+            "experience": 360,
             "level": 0
         }
     ],
@@ -11,12 +11,14 @@
             "Jason and the Argonauts": "https://www.imdb.com/title/tt0057197/",
             "Spartacus": "https://www.imdb.com/title/tt0054331/",
             "Ben-Hur": "https://www.imdb.com/title/tt0052618/",
-            "Zulu": "https://www.imdb.com/title/tt0058777/",
             "The Alamo": "https://www.imdb.com/title/tt0053580/",
             "Great Expectations": "https://www.imdb.com/title/tt0119223/",
             "King Kong": "https://www.imdb.com/title/tt0360717/",
             "Casino": "https://www.imdb.com/title/tt0112641/",
-            "White Heat": "https://www.imdb.com/title/tt0042041/"
+            "White Heat": "https://www.imdb.com/title/tt0042041/",
+            "American History X": "https://www.imdb.com/title/tt0120586/",
+            "High Plains Drifter": "https://www.imdb.com/title/tt0068699/",
+            "Training Day": "https://www.imdb.com/title/tt0139654/"
         }
     ]
 }

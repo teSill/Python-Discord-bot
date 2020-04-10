@@ -5,6 +5,7 @@ import movie_data
 from trivia_manager import TriviaManager
 from tmdb_manager import TMDB
 from user_data import UserData
+import globals
 
 
 class TriviaQuestions:
@@ -13,6 +14,7 @@ class TriviaQuestions:
         release_year = None
         while release_year is None:
             movie = TMDB.get_recommended_movie_by_title(random.choice(movie_data.generic_movies), 6.5)
+            globals.latest_movie_query = movie
             release_year = int(str(movie.release_date).split("-")[0])
 
         decoy_years = [release_year]
@@ -66,11 +68,11 @@ async def ask_random_question(ctx):
     # decoy_movies = TMDB.get_3_recommended_movies(title)
     await TriviaQuestions.ask_for_release_year(ctx)
 
+
 async def verify_guess(reaction, user):
     channel = reaction.message.channel
     if TriviaManager.channel_has_running_game(str(channel.id)):
         if not TriviaManager.user_can_guess(str(channel.id), str(user)):
-            print("User already used their guess.")
             return
 
         trivia_emojis = ["🇦", "🇧", "🇨", "🇩"]
@@ -95,11 +97,10 @@ async def verify_guess(reaction, user):
                     TriviaManager.clear_trivia_game(channel.id)
                     user = UserData(str(user))
                     user.add_experience(10)
-                    break
                 else:
                     msg = f"{user} guessed {key.upper()}. Wrong answer!"
                     TriviaManager.add_user_to_failed_attempts(str(channel.id), str(user))
-                    break
+                break
 
         embedded_msg = discord.Embed(title=msg, description="",
                                      color=0x00ff00)

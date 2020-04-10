@@ -10,7 +10,7 @@ TOKEN = os.environ.get('DISCORD_TOKEN')
 bot_name = "Temflix"
 custom_commands = ["find", "commands", "popular", "findactor", "findactress", "findmovie"]
 
-prefixes = ["!temflix ", "!t ", "!tem "]
+prefixes = ["!temflix ", "!t ", "!tem ", "!"]
 
 bot = commands.Bot(command_prefix=prefixes)
 bot.remove_command("help")
@@ -42,8 +42,6 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    #message.content = message.content.lower()
-
     await bot.process_commands(message)
 
 
@@ -53,8 +51,6 @@ async def on_reaction_add(reaction, user):
         return
 
     await trivia_questions.verify_guess(reaction, user)
-
-
 
 # Load cogs
 for filename in glob.iglob('./cogs/**', recursive=True):
