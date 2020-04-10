@@ -50,19 +50,23 @@ async def on_message(message):
 @bot.event
 async def on_reaction_add(reaction, user):
     channel = reaction.message.channel
+    trivia_emojis = ["🇦", "🇧", "🇨", "🇩"]
     if user == bot.user:
         return
     if TriviaManager.channel_has_running_game(str(channel.id)):
-        correct_option = TriviaManager.get_correct_answer(str(channel.id))
-        emojis = ["🇦", "🇧", "🇨", "🇩"]
+        if reaction.emoji not in trivia_emojis:
+            await reaction.message.remove_reaction(reaction.emoji, user)
+            return
 
-        if reaction.emoji == emojis[0] and correct_option == "a":
+        correct_option = TriviaManager.get_correct_answer(str(channel.id))
+
+        if reaction.emoji == trivia_emojis[0] and correct_option == "a":
             msg = "winner winner chicken dinner"
-        elif reaction.emoji == emojis[1] and correct_option == "b":
+        elif reaction.emoji == trivia_emojis[1] and correct_option == "b":
             msg = "winner winner chicken dinner"
-        elif reaction.emoji == emojis[2] and correct_option == "c":
+        elif reaction.emoji == trivia_emojis[2] and correct_option == "c":
             msg = "winner winner chicken dinner"
-        elif reaction.emoji == emojis[3] and correct_option == "d":
+        elif reaction.emoji == trivia_emojis[3] and correct_option == "d":
             msg = "winner winner chicken dinner"
         else:
             msg = "No!"
@@ -77,6 +81,7 @@ async def on_reaction_remove(reaction, user):
     pass
     #channel = reaction.message.channel.id
     #if TriviaManager.channel_has_running_game(str(channel)):
+
 
 
 # Load cogs
