@@ -38,15 +38,34 @@ class TriviaManager:
 
         with open(os.path.join(trivia_dir, f"{channel_id}.json"), "r+") as f:
             data = json.load(f)
-            return data
+            #data["UserData"][0].get("experience")
+            return data.get("correct_answer")
+
+    @classmethod
+    def add_user_to_failed_attempts(cls, channel_id, user):
+        with open(os.path.join(trivia_dir, f"{channel_id}.json"), "r+") as f:
+            data = json.load(f)
+            users = data["wrong_guesses"]
+            users.append(user)
+
+        with open(os.path.join(trivia_dir, f"{channel_id}.json"), "r+") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+    @classmethod
+    def user_can_guess(cls, channel_id, user):
+        with open(os.path.join(trivia_dir, f"{channel_id}.json"), "r+") as f:
+            data = json.load(f)
+            return user not in data["wrong_guesses"]
 
     @classmethod
     async def create_trivia_game(cls, channel_id, correct_answer):
-        if TriviaManager.channel_has_running_game(channel_id):
-            return
+        obj = {
+            "correct_answer": correct_answer,
+            "wrong_guesses": []
+        }
 
         with open(os.path.join(trivia_dir, f"{channel_id}.json"), "w") as f:
-            json.dump(correct_answer, f, ensure_ascii=False, indent=4)
+            json.dump(obj, f, ensure_ascii=False, indent=4)
 
         # await asyncio.sleep(max_game_runtime)
         # print(f"Waited {max_game_runtime}s, let's delete the trivia game.")

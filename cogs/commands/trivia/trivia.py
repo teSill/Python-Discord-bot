@@ -1,5 +1,6 @@
 from discord.ext import commands
 import trivia_questions
+from trivia_manager import TriviaManager
 
 
 class Trivia(commands.Cog):
@@ -9,6 +10,7 @@ class Trivia(commands.Cog):
     @commands.command(aliases=["play"], description="Movie trivia.")
     async def trivia(self, ctx):
         print("Question raised in channel ID:" + str(ctx.channel.id))
+        TriviaManager.clear_trivia_game(str(ctx.channel.id))
         await trivia_questions.ask_random_question(ctx)
 
 

@@ -1,7 +1,7 @@
 from pathlib import PurePath
 import os.path
 import glob
-
+import trivia_questions
 import discord
 from discord.ext import commands
 from trivia_manager import TriviaManager
@@ -49,38 +49,10 @@ async def on_message(message):
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    channel = reaction.message.channel
-    trivia_emojis = ["🇦", "🇧", "🇨", "🇩"]
     if user == bot.user:
         return
-    if TriviaManager.channel_has_running_game(str(channel.id)):
-        if reaction.emoji not in trivia_emojis:
-            await reaction.message.remove_reaction(reaction.emoji, user)
-            return
 
-        correct_option = TriviaManager.get_correct_answer(str(channel.id))
-
-        if reaction.emoji == trivia_emojis[0] and correct_option == "a":
-            msg = "winner winner chicken dinner"
-        elif reaction.emoji == trivia_emojis[1] and correct_option == "b":
-            msg = "winner winner chicken dinner"
-        elif reaction.emoji == trivia_emojis[2] and correct_option == "c":
-            msg = "winner winner chicken dinner"
-        elif reaction.emoji == trivia_emojis[3] and correct_option == "d":
-            msg = "winner winner chicken dinner"
-        else:
-            msg = "No!"
-
-        embedded_msg = discord.Embed(title=msg, description="",
-                                     color=0x00ff00)
-
-        await channel.send(embed=embedded_msg)
-
-@bot.event
-async def on_reaction_remove(reaction, user):
-    pass
-    #channel = reaction.message.channel.id
-    #if TriviaManager.channel_has_running_game(str(channel)):
+    await trivia_questions.verify_guess(reaction, user)
 
 
 
