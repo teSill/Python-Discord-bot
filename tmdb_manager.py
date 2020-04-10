@@ -10,13 +10,18 @@ tmdb.api_key = os.getenv("TMDB_API_KEY")
 movie = Movie()
 tv = TV()
 
+
 def get_release_date(title):
     try:
         movie_id = movie.search(title)[0].id
     except IndexError:
         movie_id = tv.search(title)[0].id
 
-    print(movie.air_date)
+
+def get_director(movie_id):
+    crew = movie.credits(movie_id).crew
+    director = next((item for item in crew if item["job"] == "Director"), None)
+    return director["name"]
 
 
 def get_recommendations(title, minimum_rating, amount=1):

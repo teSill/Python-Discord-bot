@@ -3,6 +3,7 @@ import random
 import discord
 import movie_data
 from trivia_manager import TriviaManager
+import tmdb_manager
 from tmdb_manager import TMDB
 from user_data import UserData
 import globals
@@ -52,6 +53,40 @@ class TriviaQuestions:
         sent_message = await ctx.send(embed=embedded_msg)
         await display_reactions(sent_message)
 
+    @classmethod
+    async def ask_which_movie_person_directed(cls, ctx):
+        movie_id = None
+        while movie_id is None:
+            movie = TMDB.get_recommended_movie_by_title(random.choice(movie_data.generic_movies), 6.5)
+            movie_id = movie.id
+
+        director = tmdb_manager.get_director(movie.id)
+
+        all_options = TMDB.get_3_recommended_movies(movie.title)
+        all_options.append(movie)
+        random.shuffle(all_options)
+
+        embedded_msg = discord.Embed(title=f"Which of these movies did {director} direct?", description="",
+                                     color=0x00ff00)
+
+        options = {
+            "A": all_options[0],
+            "B": all_options[1],
+            "C": all_options[2],
+            "D": all_options[3]
+        }
+
+        for key, value in options.items():
+            if tmdb_manager.get_director(value.id) == director:
+                correct_option = key.lower()
+            embedded_msg.add_field(name='\u200b', value=f"{key}: {value}", inline=False)
+
+        await TriviaManager.create_trivia_game(str(ctx.channel.id), correct_option)
+        sent_message = await ctx.send(embed=embedded_msg)
+        await display_reactions(sent_message)
+
+
+
 #ask_for_director = 2
 #ask_which_movie_these_actors_starred_in = 3
 #ask_for_movie_show_plot = 4
@@ -66,7 +101,7 @@ async def display_reactions(msg):
 
 async def ask_random_question(ctx):
     # decoy_movies = TMDB.get_3_recommended_movies(title)
-    await TriviaQuestions.ask_for_release_year(ctx)
+    await TriviaQuestions.ask_which_movie_person_directed(ctx)
 
 
 async def verify_guess(reaction, user):
