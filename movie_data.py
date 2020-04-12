@@ -1,4 +1,5 @@
-# Generic movies covering a wide variety of genres
+# Generic movies covering a wide variety of genres. These movies are used as base for
+# fetching a large variety of movies through tmdb recommendations.
 generic_movies = ["Parasite", "Goodfellas", "Toy Story", "Avatar", "The Conjuring", "Wall Street", "Fatal Attraction",
                   "Independence Day", "Men In Black", "Bad Boys", "Rocky", "Terminator", "The Office", "The Simpsons",
                   "Rick and Morty", "The Invention of Lying", "About Time", "Silver Linings Playbook", "Casino",
@@ -10,9 +11,6 @@ generic_movies = ["Parasite", "Goodfellas", "Toy Story", "Avatar", "The Conjurin
                   "Forrest Gump", "The Silence of the Lambs", "War Dogs", "The Wolf of Wall Street", "The Flight",
                   "Bohemian Rhapsody", "The Social Network", "Molly's Game", "Raging Bull", "Taxi Driver",
                   "Borat"]
-# Get cast and ask which movie contains that task
-# Ask for release date
-# Ask for lead actors (eg. who starred in this movie..., this actor starred in which of these movies...)
 
 # Since 1950
 best_picture_winners = ["Parasite", "Green Book", "The Shape of Water", "Moonlight", "Spotlight", "Birdman",
@@ -31,6 +29,3 @@ best_picture_winners = ["Parasite", "Green Book", "The Shape of Water", "Moonlig
                         "Around the World in 80 Days", "Marty", "On the Waterfront", "From Here to Eternity",
                         "The Greatest Show on Earth", "An American in Paris", "All About Eve", "All the Kings Men"]
 
-
-# Which of these is an oscar winner
-# On which year did X win an oscar
