@@ -41,6 +41,9 @@ class Commands(commands.Cog):
         embedded_msg.add_field(name="'!temflix recommend' or !temflix recommend n'",
                                value=ctx.bot.get_cog("Recommend").recommend.description,
                                inline=False)
+        embedded_msg.add_field(name="'!temflix trivia'",
+                               value=ctx.bot.get_cog("Trivia").trivia.description,
+                               inline=False)
         await ctx.send(embed=embedded_msg)
 
 
