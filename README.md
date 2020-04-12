@@ -5,9 +5,9 @@ With it, you can search for detailed information on movies, save them to your wa
 
 ### Prerequisites
 
-Python 3
-Personal TMDb API key (optional but some features won't work without it as they currently are). This is (currently) automatically given to you upon request on their website after registration.
-Discord application and your bots' token saved as an environment variable (by default as 'DISCORD_TOKEN')
+* Python 3
+* Personal TMDb API key (optional but some features won't work without it as they currently are). This is (currently) automatically given to you upon request on their website after registration.
+* Discord application and your bots' token saved as an environment variable (by default as 'DISCORD_TOKEN')
 
 ## Getting Started
 
