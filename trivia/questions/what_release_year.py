@@ -2,7 +2,7 @@ import random
 import tmdb_manager
 import movie_data
 import discord
-import globals
+from globals import GlobalDiscordMethods
 from trivia.trivia_manager import TriviaManager
 
 
@@ -14,7 +14,6 @@ async def ask_for_release_year(ctx):
             release_year = int(str(movie.release_date).split("-")[0])
         except AttributeError:
             continue
-        globals.latest_movie_query = movie
 
     decoy_years = [release_year]
     for i in range(0, 3):
@@ -47,6 +46,7 @@ async def ask_for_release_year(ctx):
             correct_option = key.lower()
         embedded_msg.add_field(name='\u200b', value=f"{key}: {value}", inline=False)
 
+    GlobalDiscordMethods.latest_movie_query = movie
     await TriviaManager.create_trivia_game(str(ctx.channel.id), correct_option)
     sent_message = await ctx.send(embed=embedded_msg)
     await TriviaManager.display_reactions(sent_message)

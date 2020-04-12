@@ -1,5 +1,5 @@
 from discord.ext import commands
-import globals
+from globals import GlobalDiscordMethods
 import json
 from user_data import UserData
 import imdb_manager
@@ -44,11 +44,11 @@ class Save(commands.Cog):
 
     @commands.command(description="Saves the last queried movie to your watchlist.")
     async def save(self, ctx):
-        if globals.latest_movie_query is None:
+        if GlobalDiscordMethods.latest_movie_query is None:
             await ctx.send("Search for a movie first! This command saves the last queried movie.")
             return
 
-        await add_to_watchlist(ctx, globals.latest_movie_query)
+        await add_to_watchlist(ctx, GlobalDiscordMethods.latest_movie_query)
 
 
 def setup(client):

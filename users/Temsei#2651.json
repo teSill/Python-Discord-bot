@@ -2,7 +2,7 @@
     "UserData": [
         {
             "is_premium": false,
-            "experience": 540,
+            "experience": 580,
             "level": 0
         }
     ],
@@ -18,7 +18,10 @@
             "White Heat": "https://www.imdb.com/title/tt0042041/",
             "American History X": "https://www.imdb.com/title/tt0120586/",
             "High Plains Drifter": "https://www.imdb.com/title/tt0068699/",
-            "Training Day": "https://www.imdb.com/title/tt0139654/"
+            "Training Day": "https://www.imdb.com/title/tt0139654/",
+            "Cloud Atlas": "https://www.imdb.com/title/tt1371111/",
+            "Charlie's Angels": "https://www.imdb.com/title/tt5033998/",
+            "Memento": "https://www.imdb.com/title/tt0209144/"
         }
     ]
 }

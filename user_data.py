@@ -32,7 +32,7 @@ class UserData:
         self.experience = self.get_experience()
         self.level = self.get_level()
         self.watchlist = self.get_watchlist()
-        self.max_watchlist_size = 50 if self.is_premium else 15
+        self.max_watchlist_size = 50
 
     def create_user_save(self):
         if not user_save_exists(self.username):

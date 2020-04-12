@@ -7,6 +7,7 @@ class Trivia(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    @commands.cooldown(1, 5, commands.BucketType.channel)
     @commands.command(aliases=["play"], description="Movie trivia.")
     async def trivia(self, ctx):
         print("Question raised in channel ID:" + str(ctx.channel.id))
