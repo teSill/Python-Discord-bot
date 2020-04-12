@@ -3,6 +3,12 @@
 Temflix is a simple movie bot written in Python that can be added to any discord server with minimal permissions. 
 With it, you can search for detailed information on movies, save them to your watchlist, get movie recommendations based on movies you've saved, play movie trivia and much more.
 
+To add this bot to your own server, go to:
+
+https://discordapp.com/api/oauth2/authorize?client_id=695951529659727916&permissions=387136&scope=bot
+
+The server may or may not stay online, but I'll gladly host it upon request.
+
 ### Prerequisites
 
 * Python 3
