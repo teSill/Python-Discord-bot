@@ -13,12 +13,6 @@ Discord application and your bots' token saved as an environment variable (by de
 
 After getting the prerequisite, simply download the package, plug it in the IDE of your choosing and run the main file, 'temflix.py'. 
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
 ## Built With
 
 * Python 3
